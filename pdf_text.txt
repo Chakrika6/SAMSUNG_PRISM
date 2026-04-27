@@ -1,0 +1,443 @@
+SAMSUNG PRISM HACKATHON 2026  ·  PHASE 1 PROPOSAL
+RADAR
+RESEARCH AWARENESS, DETECTION AND RESPONSE
+An autonomous OpenClaw agent that bridges global academic
+research and your internal engineering work — surfacing
+opportunities and detecting competitive threats before they cost you.
+MODE 1
+R2R — Opportunity Engine
+Matches new research papers to
+active repos and auto-creates
+actionable GitHub issues.
+MODE 2
+SIGNAL — Threat Detector
+Monitors competitor institutions and
+fires real-time Telegram alerts on
+IP-overlapping publications.
+MODE 3
+TREND — Research Foresight
+Detects emerging research clusters
+before they become competitive
+battlegrounds.
+TEAM
+CodeRock
+MEMBERS
+Shruti Raina 1MS24CS178 Tayi Chakrika 1MS24CS200
+Tanishk Sinha 1MS24CS198 Sahitya Chaddha 1MS24CS153
+M.S. Ramaiah Institute of Technology
+THEMES
+Theme 1 — GenAI Research & Theme 3 — Productivity
+Platforms
+OPENCLAW VARIANT
+NomaClaw (NVIDIA NemoGuard integrated)
+SUBMISSION DATE
+April 24, 2026
+1 Theme Selected
+Primary — Theme 1: GenAI Research Secondary — Theme 3: Productivity Platforms
+HOW RADAR BRIDGES BOTH THEMES
+Theme 1 — GenAI Research
+Autonomous paper ingestion · LLM semantic
+matching · Embeddings-based vector
+similarity · Multi-source monitoring
+↔
+Theme 3 — Productivity Platforms
+GitHub issue auto-creation · Telegram alerts ·
+Weekly digest · Codebase graph · Zero manual
+effort
+2 Problem Statement
+The Research Intelligence Crisis at Scale
+Samsung Research Institute faces a dual research intelligence failure that compounds silently every
+week:
+FAILURE 1
+The Opportunity Gap
+Engineers track hundreds of papers but lack a
+system to automatically detect whether a new
+paper materially affects an active project or fixes an
+open issue. Senior engineers must make these
+judgments manually — it never scales. High-value
+papers sit in reading lists for months.
+FAILURE 2
+The Competitive Blind Spot
+When Google Brain, Qualcomm AI, or Meta AI
+publishes work overlapping Samsungʼs unpublished
+R&D — the IP advantage is lost, patent novelty is
+threatened, and project directions may need to
+pivot. Today this is discovered by accident, weeks
+after publication.
+Root Cause: No autonomous agent maintains a living memory of internal engineering work and watches
+the global research world to surface what matters to you specifically. RADAR solves both — one agent,
+two intelligent modes, complete research situational awareness.
+PROBLEM →  ROOT CAUSE →  RADAR SOLUTION
+FAILURE 1
+Opportunity Gap
+Papers missed for months
+No contextual awareness
+Manual matching canʼt scale
+R2R MODE
+OpportunityMatcher + GitHub
+Issues
+FAILURE 2
+Competitive Blind Spot
+IP overlap found weeks late
+No competitor monitoring
+No overlap analysis at scale
+SIGNAL MODE
+ThreatDetector + Telegram
+3 Detailed Architecture
+RADAR — FULL SYSTEM ARCHITECTURE
+INPUT SOURCES
+ArXiv API
+Semantic Scholar
+GitHub Repos
+Memory Layer
+RADAR AGENT
+OPENCLAW / NOMACLAW · REACT LOOP ·
+PERSISTENT MEMORY
+06:00 Fetch →  06:30 Opportunity →  07:00 Threat →
+07:30 Brief
+01 PaperFetcher — ArXiv + Semantic
+Scholar ingestion
+02 CodebaseGraphBuilder — Living AST
+embeddings
+03 OpportunityMatcher — LLM relevance +
+citation tracing
+04 ThreatDetector — Overlap scoring +
+patent proximity
+05 TrendAnalyzer — Cluster detection +
+momentum signals
+06 OutputDispatcher — GitHub + Telegram
++ weekly digest
+07 FeedbackLoop — Adaptive relevance
+calibration
+OUTPUTS
+GitHub Issues
+Telegram Alerts
+Trend Reports
+Experiment Suggestions
+Patent Proximity Score
+Daily Heartbeat Execution Flow
+SINGLE HEARTBEAT CYCLE — STEP BY STEP
+06:00 — Heartbeat Triggered (Daily Schedule)
+PAPERFETCHER
+ArXiv + Semantic Scholar →  Deduplicate →
+Cache
+D a ily  pa pe r in g e s tio n  b y
+to pic  ta g s
+C o m pe tito r in s titu tio n
+filte rin g
+C o d e b a s e  g ra ph  +  o pe n
+is s u e s
+re po _ c o n te x t ·
+in te rn a l_ b rie fs  ·
+c o m pe tito r_ pro file s
+O ppo rtu n ity  c a rd s  w ith
+c ita tio n  tra c e s
+R e a l- tim e  th re a ts  +
+w e e k ly  b rie f
+W e e k ly  m o m e n tu m
+s ig n a ls
+P a pe r to  fu n c tio n - le v e l
+a c tio n s
+G o o g le  P a te n ts  /  L e n s . o rg
+c h e c k
+For Each Paper: From a tracked competitor institution?
+YES →
+THREATDETECTOR
+Compare vs internal_briefs
+PATENT SCORING
+Google Patents / Lens.org
+Telegram Alert Fired
+←  NO
+OPPORTUNITYMATCHER
+Compare vs repo_context + codebase graph
+CITATION TRACE
+Map to specific functions / modules
+GitHub Issue Created
+TRENDANALYZER
+Cluster + Momentum Check
+07:30 — Weekly Brief Sent via Telegram
+Memory Layer Structure
+~/.openclaw/radar/
+├──  repo_context/# Goals, open issues, benchmarks, active questions
+├──  internal_briefs/# Unpublished R&D — stays local, never leaves the machine
+├──  competitor_profiles/# Institution ID + tracked domains (YAML)
+└──  codebase_graph/# NEW: Auto-generated AST embeddings, function signatures, TODOs
+4 User Stories
+RESEARCH ENGINEER
+On-Device Model Optimization
+"As a Samsung Research engineer, I want RADAR to
+automatically surface papers that address my open
+GitHub issues, so that I discover relevant research
+instantly instead of missing it for months."
+RESEARCH TEAM LEAD
+SR-B Institute
+"I want to be alerted the moment Google Brain or
+Qualcomm publishes a paper overlapping our internal
+project brief, so I can expedite our review and protect
+our competitive position."
+ENGINEERING MANAGER
+Research Teams Oversight
+"I want a unified weekly research brief every Monday
+morning, so my team starts the week aware of both
+opportunities to exploit and threats to address."
+NEW TEAM MEMBER
+Onboarding Engineer
+"I want RADARʼs GitHub issues to show me which
+papers the team has identified as relevant, so I can
+quickly understand the research landscape around my
+work."
+5 User Journeys
+Journey 1 — Opportunity Discovery (R2R Mode)
+R2R — STEP BY STEP
+New ArXiv Paper Published
+"Efficient On-Device Inference via Adaptive
+Quantization..."
+PaperFetcher ingests abstract + metadata
+OpportunityMatcher
+repo_context + codebase graph
+Match: Issue #42 + quantize_weights() ✓
+GitHub Issue auto-created with citation trace
+[RADAR] GitHub Issue #87
+Paper:   Efficient On-Device Inference...
+Citation:model_compression.py →
+quantize_weights()
+Relevance: RAM pressure, Galaxy A-series
+(Issue #42)
+Action:  Benchmark on Galaxy A55 NPU
+Suggested Experiment
+Repo:  model-compression
+Fn:    quantize_weights()
+Test:  Adaptive quantization on Galaxy A-
+series NPU
+Expected benefit: ~20–30% RAM reduction
+Journey 2 — Threat Detection (SIGNAL Mode)
+SIGNAL — STEP BY STEP
+Semantic Scholar: Google Brain paper detected
+PaperFetcher flags competitor institution
+ThreatDetector: compare vs
+internal_briefs/project_orion.md
+Patent proximity scored via Google Patents
+Telegram alert fires within minutes
+RADAR THREAT ALERT
+Institution: Google Brain
+Published: 6 hours ago
+Overlap:  Project Orion (internal brief)
+Similarity:74%
+Patent risk:2 related filings found
+Claims overlap:
+· Cross-modal attention mechanism
+· On-device memory optimisation
+· <150ms target on mobile NPU
+Action:   Expedite patent filing review
+6 Advanced Feature Upgrades
+These five upgrades separate RADAR from every other hackathon project. Each one is a concrete
+differentiator — scoped, implementable, and directly valuable to Samsung Research.
+ADAPTIVE FEEDBACK LOOP — HOW RADAR LEARNS OVER TIME
+GitHub Issue
+Created by
+RADAR
+RADAR FIRES
+Engineer
+Reviews Issue
+HUMAN JUDGMENT
+Links to PR
+Positive signal
+Boost match type
+↑ relevance
+weight
+Closes: not
+relevant
+Negative signal
+Reduce match
+type
+↓ relevance
+weight
+RADAR
+Recalibrates
+SMARTER AFTER 30 DAYS
+Research Trend Detection — Example Output
+UPGRADE 01
+Living Codebase Graph
+Replace static .md repo context with an auto-generated
+graph. RADAR reads the actual codebase — function
+signatures, active TODOs, open PRs — and generates
+live embeddings. Matching is against real code, not a
+stale README.
+ChromaDB + AST Parsing
+UPGRADE 02
+Citation Tracing — Function-Level
+Relevance
+When a paper matches a repo, RADAR traces which
+specific functions are relevant. "This paper is relevant
+to model_compression.py →  quantize_weights()" is 10×
+more actionable than a generic match.
+AST + Embedding Similarity
+UPGRADE 03
+Patent Proximity Scoring
+After detecting a threat, RADAR queries Google Patents
+or Lens.org to check whether overlapping concepts are
+already filed. Samsung files ~10,000 patents/year —
+patent risk quantification is business-critical. No other
+team will build this.
+Google Patents / Lens.org API
+UPGRADE 04
+Research Momentum Signals
+Detects when a cluster of papers from multiple
+institutions converges on a direction your team is
+working in. Strategic foresight — not just a paper
+notification. Tells you which directions are becoming
+battlegrounds before it is obvious.
+K-Means Clustering + Embeddings
+UPGRADE 05 — THE MOST POWERFUL DIFFERENTIATOR
+Adaptive Feedback Loop — Self-Improving Relevance
+When an engineer links a RADAR GitHub issue to a PR →  positive signal, boost this match type. When they close it “not
+relevant” →  negative signal. After 30 days, RADAR has calibrated relevance scoring tuned to your specific team. No
+other hackathon project will have a self-improving AI system.
+Reinforcement Signals · 30-Day Calibration · Zero Extra Config
+TREND DETECTION PIPELINE
+STEP 1
+Paper
+Ingestion
+Daily batch
+STEP 2
+Embedding
+sentence-
+transformers
+STEP 3
+K-Means
+Clustering
+STEP 4
+Momentum
+Detection
+STEP 5
+Trend Report
+via Telegram
+LIVE TREND DETECTED
+On-Device Diffusion Models
+Strategic signal for Samsung Galaxy AI pipeline
+17
+New Papers
+in last 14 days
+Google
+Meta
+MIT
+Institutions
++ 4 academic labs
+3×
+Velocity
+vs. 30-day baseline
+Implication: Edge generative models becoming feasible on mobile NPUs.
+Recommendation: Evaluate lightweight diffusion models for Samsung Galaxy AI pipeline immediately.
+7 Development Timeline
+Phase 2 Implementation Plan — May 1–8, 2026
+Day 1 — May 1 OpenClaw Setup + Telegram Bot + NomaClaw sandbox
+Running OpenClaw instance · Bot responds on Telegram
+Day 2 — May 2 ArXiv API Integration + PaperFetcher Skill
+Agent fetches papers by topic tag on heartbeat · Deduplication working
+Day 3 — May 3 Semantic Scholar + Competitor Filtering + Codebase Graph v1
+Competitor papers flagged · AST graph builder prototype ready
+Day 4 — May 4 GitHub API — Repo Reader + Issue Creator + Citation Tracing
+Agent reads repo issues · Creates test GitHub issue with citation trace
+Day 5 — May 5 OpportunityMatcher Skill — LLM Relevance Scoring
+Agent matches paper to repo + function signatures · Issue created with trace
+Day 6 — May 6 ThreatDetector + Patent Proximity + Feedback Loop hooks
+Threat alert fires on Telegram · Patent score computed · Reaction hooks live
+Day 7 — May 7 TrendAnalyzer + Weekly Brief Composer + End-to-End Integration
+Full pipeline: paper →  opportunity / threat / trend →  issue / alert / brief
+✓May 4 EOD
+Both APIs integrated, codebase
+graph prototype running
+✓May 6 EOD
+Both modes (Opportunity +
+Threat) working end-to-end
+✓May 8 EOD
+All 5 upgrades integrated, demo-
+ready, submitted
+8 Components & Dependencies
+OpenClaw Variant
+NomaClaw — the sandboxed, secure variant of
+OpenClaw with NVIDIA NemoGuard integration for
+safe execution where internal project briefs are
+sensitive.
+Platform & Runtime
+OpenClaw — self-hosted, local agent framework
+Python 3.11 — implementation language
+Telegram Bot — primary user interface (zero
+install)
+GitHub — output channel + version control
+Libraries
+Library Purpose
+arxiv ArXiv paper fetching by topic tags
+semanticscholar Semantic Scholar API — author + institution filtering
+PyGithub GitHub REST API — read repos, create issues
+python-telegram-botTelegram Bot API — alerts and weekly brief
+chromadb Local vector store for semantic similarity search
+sentence-transformersLocal embeddings — free, on-device, no API cost
+google-generativeaiGemini 1.5 Flash — LLM relevance + overlap scoring
+sklearn K-Means clustering for trend detection
+ast (stdlib) Python AST parsing for codebase graph builder
+pyyaml + schedule Config file parsing + heartbeat scheduling
+OpenClaw Skills Written
+Day 8 — May 8 Demo Prep, Edge Cases, Documentation, Submission
+Demo-ready · Video recorded · README finalized · Submitted
+01
+PaperFetcher
+ArXiv + Semantic Scholar ingestion
+02
+CodebaseGraphBuilder
+AST + embeddings, living context
+03
+OpportunityMatcher
+Relevance scoring + citation tracing
+04
+ThreatDetector
+Overlap detection + patent scoring
+05
+TrendAnalyzer
+Momentum + cluster detection
+06
+OutputDispatcher
+GitHub + Telegram + Feedback Loop
+API Requirements
+API Cost Usage
+ArXiv API Free Paper fetching by topic tags (daily)
+Semantic Scholar API Free Paper + institution data — 100 req/5min
+GitHub REST API Free Repo read + issue creation — 5,000 req/hr
+Telegram Bot API Free Threat alerts + weekly brief
+Gemini 1.5 Flash API Free tier LLM reasoning — 1M tokens/month free
+Google Patents / Lens.org Free Patent proximity scoring on detected threats
+Total API Cost: Rs. 0  ·  No Cloud Required  ·  Fully Self-Hosted
+9 Why RADAR Wins
+Evaluation
+Criterion Weight RADARʼs Edge
+Functionality 35% Three working modes — Opportunity, Threat, Trend — demonstrated live with
+real paper fetching, GitHub issue creation, and Telegram alerts
+Technical Depth 25% Persistent memory architecture · AST codebase graph · semantic vector
+matching · multi-source API orchestration · ReAct loop · self-improving feedback
+calibration
+UX & Novelty 15% No tool bridges research intelligence to internal engineering work — with
+competitive threat detection, patent risk scoring, and research foresight in one
+agent
+Business
+Relevance
+15% Samsung Research files ~10,000 patents/year. Missing a competitorʼs publication
+= millions in lost IP advantage. Patent proximity scoring addresses this directly —
+pays for itself on Day 1
+Evaluation
+Criterion Weight RADARʼs Edge
+Documentation 10% This proposal + comprehensive README + architecture diagrams + demo video
++ inline code documentation
+Rs.0
+Total API Cost
+7
+OpenClaw Skills
+5
+Upgrade Features
+3
+Operating Modes
+RADAR
+Research Awareness, Detection And Response
+Built with OpenClaw (NomaClaw variant)
+Theme 1 & Theme 3 — Samsung PRISM 2026
+Team CodeRock
+M.S. Ramaiah Institute of Technology

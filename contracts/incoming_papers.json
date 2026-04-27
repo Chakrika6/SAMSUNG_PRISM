@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Example Paper Title",
+    "abstract": "This is an example abstract from ArXiv.",
+    "url": "https://arxiv.org/abs/xxxx.xxxxx",
+    "authors": ["Author One", "Author Two"],
+    "source": "ArXiv"
+  }
+]

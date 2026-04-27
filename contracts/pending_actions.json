@@ -1,0 +1,9 @@
+[
+  {
+    "paper_title": "Example Paper Title",
+    "url": "https://arxiv.org/abs/xxxx.xxxxx",
+    "type": "Opportunity",
+    "reason": "This paper discusses adaptive quantization which exactly matches Goal #1 in repo_context.md regarding RAM pressure on Galaxy A55.",
+    "action": "Run benchmark on Galaxy A55 NPU"
+  }
+]
