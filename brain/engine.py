@@ -1,13 +1,13 @@
 import json
 import os
-import google.generativeai as genai
+from google import genai
 
 # Configure API key from environment variable
 api_key = os.environ.get("GOOGLE_API_KEY")
 if not api_key:
     print("Warning: GOOGLE_API_KEY not found in environment variables. Please set it before running.")
 
-genai.configure(api_key=api_key)
+client = genai.Client(api_key=api_key)
 
 def main():
     # Define file paths relative to this script
@@ -63,10 +63,12 @@ Make sure the output is valid JSON.
 
     # Call Gemini API
     print("Analyzing papers with Gemini...")
-    model = genai.GenerativeModel("gemini-1.5-flash", generation_config={"response_mime_type": "application/json"})
-    
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+            config={"response_mime_type": "application/json"}
+        )
         output_json = response.text
         
         # Validate that it parses as JSON
