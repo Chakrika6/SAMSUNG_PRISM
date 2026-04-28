@@ -32,8 +32,8 @@ from telegram.constants import ParseMode
 # ---------------------------------------------------------------------------
 # Configuration – override via environment variables or edit directly here
 # ---------------------------------------------------------------------------
-TELEGRAM_BOT_TOKEN: str = "8638650035:AAGq4qXwDG4eJPyyrEsuulI6PnNsosFccVQ"
-TELEGRAM_CHAT_ID: str = "1448418006"
+TELEGRAM_BOT_TOKEN: str = os.getenv("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
+TELEGRAM_CHAT_ID: str = os.getenv("TELEGRAM_CHAT_ID", "YOUR_CHAT_ID_HERE")
 
 # Path to the contract file (relative to this script's location)
 SCRIPT_DIR = Path(__file__).parent          # outputs/
