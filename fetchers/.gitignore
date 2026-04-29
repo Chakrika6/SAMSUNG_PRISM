@@ -1,0 +1,6 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Runtime cache (regenerated automatically)
+.profile_cache.json
