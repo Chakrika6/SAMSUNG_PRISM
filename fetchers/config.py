@@ -185,3 +185,10 @@ PROFILE_CACHE_FILE = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), ".profile_cache.json"
 )
 
+# ---------------------------------------------------------------------------
+# Trend Fetcher Settings
+# ---------------------------------------------------------------------------
+ARXIV_TREND_CATEGORIES = ["cs.AI", "cs.LG", "cs.CV", "cs.CL", "cs.NE"]
+ARXIV_TREND_MAX_RESULTS = 2000
+ARXIV_BASE_URL = "http://export.arxiv.org/api/query"
+
