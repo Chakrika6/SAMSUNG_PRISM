@@ -1,0 +1,14 @@
+[
+  {
+    "cluster_name": "On-Device Vision-Language Models",
+    "paper_count": 17,
+    "timeframe_days": 14,
+    "key_competitors": ["MIT CSAIL", "Google DeepMind", "Qualcomm AI Research"],
+    "implication": "Rapid acceleration in multimodal on-device inference — direct threat to Samsung's NPU edge advantage. Competitors are publishing quantization-aware VLM fine-tuning pipelines that match Galaxy A-series constraints.",
+    "top_paper": {
+      "title": "MobileVLM: Efficient Vision-Language Models for Mobile Devices",
+      "url": "https://arxiv.org/abs/2312.16886"
+    },
+    "trend_score": 94
+  }
+]
