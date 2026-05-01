@@ -1,0 +1,32 @@
+[
+  {
+    "title": "FlashAttention for Mobile Vision-Language Models",
+    "abstract": "We present a novel hardware-aware cross-attention mechanism tailored for mobile NPUs. By minimizing memory access and optimizing matrix multiplications, we achieve sub-100ms inference times on mid-tier ARM devices, effectively removing the cross-attention bottleneck in multimodal pipelines.",
+    "date": "2026-04-28",
+    "category": "cs.CV"
+  },
+  {
+    "title": "Sub-4-bit Adaptive Quantization for Edge Devices",
+    "abstract": "This paper explores aggressive quantization techniques for vision transformers. Our adaptive method maintains 99% of FP32 accuracy while operating at 3-bit precision, significantly reducing RAM pressure on constrained devices like the Galaxy series.",
+    "date": "2026-04-26",
+    "category": "cs.AI"
+  },
+  {
+    "title": "Large Language Models for Customer Support",
+    "abstract": "An overview of using 70B parameter models for automated customer service. We discuss the challenges of serving large models in cloud environments and propose a novel batching mechanism.",
+    "date": "2026-04-05",
+    "category": "cs.CL"
+  },
+  {
+    "title": "Optimizing Cross-Attention with Sparse Tokens",
+    "abstract": "By aggressively pruning tokens during cross-attention, we speed up inference of vision-language models. This approach reduces computation by 40% with minimal accuracy degradation.",
+    "date": "2026-04-30",
+    "category": "cs.CV"
+  },
+  {
+    "title": "A Survey of Graph Neural Networks",
+    "abstract": "We review recent advances in Graph Neural Networks, focusing on scalability and message passing optimizations.",
+    "date": "2026-04-10",
+    "category": "cs.LG"
+  }
+]
