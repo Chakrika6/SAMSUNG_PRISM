@@ -1,0 +1,30 @@
+{
+  "cluster_id": 0,
+  "cluster_name": "Surge in cs.CV Research",
+  "papers_last_14_days": 3,
+  "key_competitors": [
+    "Google Brain",
+    "Meta AI"
+  ],
+  "implication": "Rapid movement detected in this research area. Immediate attention required to maintain competitive edge.",
+  "papers": [
+    {
+      "title": "FlashAttention for Mobile Vision-Language Models",
+      "abstract": "We present a novel hardware-aware cross-attention mechanism tailored for mobile NPUs. By minimizing memory access and optimizing matrix multiplications, we achieve sub-100ms inference times on mid-tier ARM devices, effectively removing the cross-attention bottleneck in multimodal pipelines.",
+      "date": "2026-04-28",
+      "category": "cs.CV"
+    },
+    {
+      "title": "Sub-4-bit Adaptive Quantization for Edge Devices",
+      "abstract": "This paper explores aggressive quantization techniques for vision transformers. Our adaptive method maintains 99% of FP32 accuracy while operating at 3-bit precision, significantly reducing RAM pressure on constrained devices like the Galaxy series.",
+      "date": "2026-04-26",
+      "category": "cs.AI"
+    },
+    {
+      "title": "Optimizing Cross-Attention with Sparse Tokens",
+      "abstract": "By aggressively pruning tokens during cross-attention, we speed up inference of vision-language models. This approach reduces computation by 40% with minimal accuracy degradation.",
+      "date": "2026-04-30",
+      "category": "cs.CV"
+    }
+  ]
+}
