@@ -14,6 +14,11 @@ pydantic          # Structured output & data validation
 sentence-transformers  # Local embeddings for research clustering
 scikit-learn           # KMeans clustering for trend detection
 numpy                  # Numerical computations
+torch                  # Backend for sentence-transformers
+
+# Data Parsing & Fetching
+arxiv                  # ArXiv API wrapper
+PyYAML                 # YAML configuration parsing
 
 # Broadcasting & Alerts
 python-telegram-bot  # Direct Telegram API integration (async)
