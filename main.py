@@ -32,6 +32,10 @@ def heartbeat():
     print("Executing RADAR Heartbeat...")
     print("=========================================\n")
     
+    # Step 0: Context Discovery (Member 3 - Strategy)
+    print("Step 0: Discovering Organization Context via GitHub API...")
+    run_script("brain/org_scanner.py")
+    
     # Step 1: Call fetchers module
     print("Step 1: Multi-Dimensional Harvesting (Opportunities, Threats, Trends)...")
     run_script("fetchers/paper_fetcher.py")

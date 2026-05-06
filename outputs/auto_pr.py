@@ -326,47 +326,54 @@ def generate_code_with_gemini(alert: dict) -> str:
     """
     Call Gemini via the google.genai SDK and return generated Python source.
     Retries up to 3 times with exponential backoff on 429 / quota errors.
+    Falls back to Groq if Gemini is completely unavailable.
     """
-    client = genai.Client(api_key=GOOGLE_API_KEY)
     prompt = build_gemini_prompt(alert)
+    safe_print(f"[AI] Generating code for: {alert.get('target_entity', '?')} ...")
 
-    safe_print(f"[GEMINI] Generating code for: {alert.get('target_entity', '?')} ...")
-    safe_print(f"[GEMINI] Model: {GEMINI_MODEL}")
+    # 1. Try Gemini
+    try:
+        client = genai.Client(api_key=GOOGLE_API_KEY)
+        safe_print(f"[GEMINI] Trying {GEMINI_MODEL}...")
+        response = client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=prompt,
+            config=genai_types.GenerateContentConfig(
+                temperature=0.2,
+                max_output_tokens=8192,
+            ),
+        )
+        code = response.text.strip()
+        return strip_markdown_fences(code)
+    except Exception as exc:
+        safe_print(f"[WARN] Gemini failed: {exc}. Trying Groq Fallback...")
 
-    max_retries = 3
-    for attempt in range(1, max_retries + 1):
+    # 2. Try Groq Fallback
+    groq_api_key = os.getenv("GROQ_API_KEY")
+    if groq_api_key:
         try:
-            response = client.models.generate_content(
-                model=GEMINI_MODEL,
-                contents=prompt,
-                config=genai_types.GenerateContentConfig(
-                    temperature=0.2,      # low temp = deterministic code
-                    max_output_tokens=8192,
-                ),
+            from groq import Groq
+            client = Groq(api_key=groq_api_key)
+            safe_print("[GROQ] Switching to Llama-3...")
+            chat_completion = client.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model="llama-3.3-70b-versatile",
             )
-            break  # success — exit retry loop
+            code = chat_completion.choices[0].message.content.strip()
+            return strip_markdown_fences(code)
+        except Exception as groq_err:
+            safe_print(f"[ERROR] Groq fallback also failed: {groq_err}")
+            raise
+    else:
+        safe_print("[ERROR] No GROQ_API_KEY found for fallback.")
+        raise
 
-        except Exception as exc:
-            err_str = str(exc)
-            if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
-                # Extract suggested retry delay from the error message
-                import re
-                match = re.search(r"retry in (\d+)", err_str)
-                wait = int(match.group(1)) + 5 if match else (15 * attempt)
-                safe_print(f"[GEMINI] Rate-limited (attempt {attempt}/{max_retries}). "
-                           f"Waiting {wait}s before retry...")
-                if attempt == max_retries:
-                    raise
-                time.sleep(wait)
-            else:
-                raise  # non-quota error — fail immediately
-
-    code = response.text.strip()
-
-    # Strip accidental markdown fences Gemini sometimes adds
+def strip_markdown_fences(code: str) -> str:
+    """Strip accidental markdown fences AI models sometimes add."""
     if code.startswith("```"):
         lines = code.splitlines()
         code = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
+    return code
 
     return code
 
@@ -502,7 +509,14 @@ def create_pull_request(token: str, org_name: str, fallback_repo: str, alert: di
     slug          = slugify(target_entity)
     timestamp     = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     branch_name   = f"{BRANCH_PREFIX}/{slug}-{timestamp}"
-    file_path     = f"{GENERATED_CODE_DIR}/{slug}.py"
+    
+    # Route code to the correct Samsung department folder
+    dept = alert.get("department", "").strip()
+    if dept:
+        file_path = f"data/{dept}/{slug}.py"
+    else:
+        file_path = f"{GENERATED_CODE_DIR}/{slug}.py"
+
     generated_at  = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     # ── 1. Get base branch SHA ───────────────────────────────────────────────

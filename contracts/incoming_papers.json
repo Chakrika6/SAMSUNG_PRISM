@@ -1,1 +1,390 @@
-[]
+[
+  {
+    "title": "Audio-Visual Intelligence in Large Foundation Models",
+    "abstract": "Audio-Visual Intelligence (AVI) has emerged as a central frontier in artificial intelligence, bridging auditory and visual modalities to enable machines that can perceive, generate, and interact in the multimodal real world. In the era of large foundation models, joint modeling of audio and vision has become increasingly crucial, i.e., not only for understanding but also for controllable generation and reasoning across dynamic, temporally grounded signals. Recent advances, such as Meta MovieGen and Google Veo-3, highlight the growing industrial and academic focus on unified audio-vision architectures that learn from massive multimodal data. However, despite rapid progress, the literature remains fragmented, spanning diverse tasks, inconsistent taxonomies, and heterogeneous evaluation practices that impede systematic comparison and knowledge integration. This survey provides the first comprehensive review of AVI through the lens of large foundation models. We establish a unified taxonomy covering the broad landscape of AVI tasks, ranging from understanding (e.g., speech recognition, sound localization) to generation (e.g., audio-driven video synthesis, video-to-audio) and interaction (e.g., dialogue, embodied, or agentic interfaces). We synthesize methodological foundations, including modality tokenization, cross-modal fusion, autoregressive and diffusion-based generation, large-scale pretraining, instruction alignment, and preference optimization. Furthermore, we curate representative datasets, benchmarks, and evaluation metrics, offering a structured comparison across task families and identifying open challenges in synchronization, spatial reasoning, controllability, and safety. By consolidating this rapidly expanding field into a coherent framework, this survey aims to serve as a foundational reference for future research on large-scale AVI.",
+    "url": "http://arxiv.org/abs/2605.04045v1",
+    "authors": [
+      "You Qin",
+      "Kai Liu",
+      "Shengqiong Wu",
+      "Kai Wang",
+      "Shijian Deng",
+      "Yapeng Tian",
+      "Junbin Xiao",
+      "Yazhou Xing",
+      "Yinghao Ma",
+      "Bobo Li",
+      "Roger Zimmermann",
+      "Lei Cui",
+      "Furu Wei",
+      "Jiebo Luo",
+      "Hao Fei"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "Safety and accuracy follow different scaling laws in clinical large language models",
+    "abstract": "Clinical LLMs are often scaled by increasing model size, context length, retrieval complexity, or inference-time compute, with the implicit expectation that higher accuracy implies safer behavior. This assumption is incomplete in medicine, where a few confident, high-risk, or evidence-contradicting errors can matter more than average benchmark performance. We introduce SaFE-Scale, a framework for measuring how clinical LLM safety changes across model scale, evidence quality, retrieval strategy, context exposure, and inference-time compute. To instantiate this framework, we introduce RadSaFE-200, a Radiology Safety-Focused Evaluation benchmark of 200 multiple-choice questions with clinician-defined clean evidence, conflict evidence, and option-level labels for high-risk error, unsafe answer, and evidence contradiction. We evaluated 34 locally deployed LLMs across six deployment conditions: closed-book prompting (zero-shot), clean evidence, conflict evidence, standard RAG, agentic RAG, and max-context prompting. Clean evidence produced the strongest improvement, increasing mean accuracy from 73.5% to 94.1%, while reducing high-risk error from 12.0% to 2.6%, contradiction from 12.7% to 2.3%, and dangerous overconfidence from 8.0% to 1.6%. Standard RAG and agentic RAG did not reproduce this safety profile: agentic RAG improved accuracy over standard RAG and reduced contradiction, but high-risk error and dangerous overconfidence remained elevated. Max-context prompting increased latency without closing the safety gap, and additional inference-time compute produced only limited gains. Worst-case analysis showed that clinically consequential errors concentrated in a small subset of questions. Clinical LLM safety is therefore not a passive consequence of scaling, but a deployment property shaped by evidence quality, retrieval design, context construction, and collective failure behavior.",
+    "url": "http://arxiv.org/abs/2605.04039v1",
+    "authors": [
+      "Sebastian Wind",
+      "Tri-Thien Nguyen",
+      "Jeta Sopa",
+      "Mahshad Lotfinia",
+      "Sebastian Bickelhaup",
+      "Michael Uder",
+      "Harald Köstler",
+      "Gerhard Wellein",
+      "Sven Nebelung",
+      "Daniel Truhn",
+      "Andreas Maier",
+      "Soroosh Tayebi Arasteh"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "Stayin' Aligned Over Time: Towards Longitudinal Human-LLM Alignment via Contextual Reflection and Privacy-Preserving Behavioral Data",
+    "abstract": "Current human-AI alignment and evaluation methods for large language models (LLMs) often rely on preference signals collected immediately after an interaction. This practice implicitly treats preference as static, even though many LLM-mediated decisions unfold over time and may be re-evaluated differently after real-world consequences and observed outcomes. Therefore, we argue for a methodological shift from single-moment preference elicitation to longitudinal, context-situated alignment measurement. We present a methodological framework for collecting temporally grounded alignment signals by combining (1) in-situ preference capture, (2) context-triggered follow-up preference reflection, and (3) privacy-preserving behavioral traces that help interpret preference change. As an instantiation of this methodology, we introduce BITE, a browser-based system that detects consequential LLM interactions, prompts reflection across later decision points, and supports progressive, user-controlled consent for sharing behavioral data. Through a two week longitudinal deployment study with 8 participants, our approach surfaced differences between immediate and later user preferences in accuracy, relevance and other dimensions of the LLM output. Our findings highlight the limitations of single-moment preference datasets and underscore the importance of longitudinal methods for alignment evaluation in everyday use.",
+    "url": "http://arxiv.org/abs/2605.04029v1",
+    "authors": [
+      "Simret Araya Gebreegziabher",
+      "Allison E Sproul",
+      "Yinuo Yang",
+      "Chaoran Chen",
+      "Diego Gómez-Zará",
+      "Toby Jia-Jun Li"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "Probabilistic-bit Guided CDCL for SAT Solving using Ising Consensus Assumptions",
+    "abstract": "Boolean satisfiability (SAT) solvers are widely used in hardware verification, cryptanalysis, automatic test-pattern generation, and side-channel reasoning workflows. Modern conflict-driven clause-learning (CDCL) solvers are highly effective, but satisfiable instances may still require substantial conflict analysis and Boolean propagation before identifying productive regions of the search space. This paper studies a hybrid SAT-solving framework in which a probabilistic-bit (p-bit) Ising sampler proposes high-agreement literals that are passed to CDCL as temporary assumptions. The goal is not to replace CDCL, but to evaluate whether stochastic low-violation samples can reduce CDCL internal search effort while retaining correctness through CDCL fallback. On selected controlled-backbone random 3-SAT benchmarks, the hybrid method reduces median conflicts by 80.8-85.5% and median propagations by 80.2-84.6% relative to pure CDCL. The observed benefit is distribution-sensitive, suggesting that p-bit guidance is effective only for certain instance classes. We further report exploratory machine-learning gates that estimate when hybrid solving is likely to help. On the selected run, a random-forest gate retains 94.8% of hybrid wins, indicating that lightweight gating may help avoid unproductive hybrid calls.",
+    "url": "http://arxiv.org/abs/2605.04033v1",
+    "authors": [
+      "Melki Bino"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "SymptomAI: Towards a Conversational AI Agent for Everyday Symptom Assessment",
+    "abstract": "Language models excel at diagnostic assessments on currated medical case-studies and vignettes, performing on par with, or better than, clinical professionals. However, existing studies focus on complex scenarios with rich context making it difficult to draw conclusions about how these systems perform for patients reporting symptoms in everyday life. We deployed SymptomAI, a set of conversational AI agents for end-to-end patient interviewing and differential diagnosis (DDx), via the Fitbit app in a study that randomized participants (N=13,917) to interact with five AI agents. This corpus captures diverse communication and a realistic distribution of illnesses from a real world population. A subset of 1,228 participants reported a clinician-provided diagnosis, and 517 of these were further evaluated by a panel of clinicians during over 250 hours of annotation. SymptomAI DDx were significantly more accurate (OR = 2.47, p < 0.001) than those from independent clinicians given the same dialogue in a blinded randomized comparison. Moreover, agentic strategies which conduct a dedicated symptom interview that elicit additional symptom information before providing a diagnosis, perform substantially better than baseline, user-guided conversations (p < 0.001). An auxiliary analysis on 1,509 conversations from a general US population panel validated that these results generalize beyond wearable device users. We used SymptomAI diagnoses as labels for all 13,917 participants to analyze over 500,000 days of wearable metrics across nearly 400 unique conditions. We identified strong associations between acute infections and physiological shifts (e.g., OR > 7 for influenza). While limited by self-reported ground truth, these results demonstrate the benefits of a dedicated and complete symptom interview compared to a user-guided symptom discussion, which is the default of most consumer LLMs.",
+    "url": "http://arxiv.org/abs/2605.04012v1",
+    "authors": [
+      "Joseph Breda",
+      "Fadi Yousif",
+      "Beszel Hawkins",
+      "Marinela Cotoi",
+      "Miao Liu",
+      "Ray Luo",
+      "Po-Hsuan Cameron Chen",
+      "Mike Schaekermann",
+      "Samuel Schmidgall",
+      "Xin Liu",
+      "Girish Narayanswamy",
+      "Samuel Solomon",
+      "Maxwell A. Xu",
+      "Xiaoran Fan",
+      "Longfei Shangguan",
+      "Anran Wang",
+      "Bhavna Daryani",
+      "Buddy Herkenham",
+      "Cara Tan",
+      "Mark Malhotra",
+      "Shwetak Patel",
+      "John B. Hernandez",
+      "Quang Duong",
+      "Yun Liu",
+      "Zach Wasson",
+      "Dimitrios Antos",
+      "Bob Lou",
+      "Matthew Thompson",
+      "Jonathan Richina",
+      "Anupam Pathak",
+      "Nichole Young-Lin",
+      "Jake Sunshine",
+      "Daniel McDuff"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "Can Transformers predict system collapse in dynamical systems?",
+    "abstract": "Transformer architectures have recently surged as promising solutions for nonlinear dynamical systems, proposed as foundation models capable of zero-shot dynamics reconstruction and forecasting. Despite this success, it remains unclear whether they can truly serve as reliable digital twins of dynamical systems, i.e., whether they capture the underlying physical dynamics in distinct parameter regimes, especially in parameter regimes from which no training data is taken. For parameter-space extrapolation in nonlinear dynamical systems, reservoir computing has demonstrated broad success, as proper training can turn it into an intrinsic dynamical system capable of capturing not only the dynamical climate of the target system but more importantly, how the climate changes with parameter. Transformers, in contrast, rely on permutation-invariant attention mechanisms that can limit their ability to capture how temporal structure changes with parameter. To determine if Transformers have the capability of dynamics extrapolation, we take predicting catastrophic collapse, which occurs when a bifurcation parameter crosses a critical threshold, as a benchmark task. Models are trained on trajectories in normal parameter regimes and then tested on parameters in an unseen regime with system collapse. Our results show that Transformers, across configurations, consistently fail to capture collapse, while reservoir computing reliably predicts the transitions. This surprising finding raises questions about the generalization ability of Transformers to dynamical systems, a topic warranting future research.",
+    "url": "http://arxiv.org/abs/2605.04024v1",
+    "authors": [
+      "Zheng-Meng Zhai",
+      "Celso Grebogi",
+      "Ying-Cheng Lai"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "Redefining AI Red Teaming in the Agentic Era: From Weeks to Hours",
+    "abstract": "AI systems are entering critical domains like healthcare, finance, and defense, yet remain vulnerable to adversarial attacks. While AI red teaming is a primary defense, current approaches force operators into manual, library-specific workflows. Operators spend weeks hand-crafting workflows - assembling attacks, transforms, and scorers. When results fall short, workflows must be rebuilt. As a result, operators spend more time constructing workflows than probing targets for security and safety vulnerabilities.   We introduce an AI red teaming agent built on the open-source Dreadnode SDK. The agent creates workflows grounded in 45+ adversarial attacks, 450+ transforms, and 130+ scorers. Operators can probe multi-agent systems, multilingual, and multimodal targets, focusing on what to probe rather than how to implement it.   We make three contributions: 1. Agentic interface. Operators describe goals in natural language via the Dreadnode TUI (Terminal User Interface). The agent handles attack selection, transform composition, execution, and reporting, letting operators focus on red teaming. Weeks compress to hours. 2. Unified framework. A single framework for probing traditional ML models (adversarial examples) and generative AI systems (jailbreaks), removing the need for separate libraries. 3. Llama Scout case study. We red team Meta Llama Scout and achieve an 85% attack success rate with severity up to 1.0, using zero human-developed code",
+    "url": "http://arxiv.org/abs/2605.04019v1",
+    "authors": [
+      "Raja Sekhar Rao Dheekonda",
+      "Will Pearce",
+      "Nick Landers"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "UniCorrn: Unified Correspondence Transformer Across 2D and 3D",
+    "abstract": "Visual correspondence across image-to-image (2D-2D), image-to-point cloud (2D-3D), and point cloud-to-point cloud (3D-3D) geometric matching forms the foundation for numerous 3D vision tasks. Despite sharing a similar problem structure, current methods use task-specific designs with separate models for each modality combination. We present UniCorrn, the first correspondence model with shared weights that unifies geometric matching across all three tasks. Our key insight is that Transformer attention naturally captures cross-modal feature similarity. We propose a dual-stream decoder that maintains separate appearance and positional feature streams. This design enables end-to-end learning through stack-able layers while supporting flexible query-based correspondence estimation across heterogeneous modalities. Our architecture employs modality-specific backbones followed by shared encoder and decoder components, trained jointly on diverse data combining pseudo point clouds from depth maps with real 3D correspondence annotations. UniCorrn achieves competitive performance on 2D-2D matching and surpasses prior state-of-the-art by 8% on 7Scenes (2D-3D) and 10% on 3DLoMatch (3D-3D) in registration recall. Project website: https://neu-vi.github.io/UniCorrn",
+    "url": "http://arxiv.org/abs/2605.04044v1",
+    "authors": [
+      "Prajnan Goswami",
+      "Tianye Ding",
+      "Feng Liu",
+      "Huaizu Jiang"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "Large Language Models are Universal Reasoners for Visual Generation",
+    "abstract": "Text-to-image generation has advanced rapidly with diffusion models, progressing from CLIP and T5 conditioning to unified systems where a single LLM backbone handles both visual understanding and generation. Despite the architectural unification, these systems frequently fail to faithfully align complex prompts during synthesis, even though they remain highly accurate at verifying whether an image satisfies those same prompts. We formalize this as the \\emph{understanding-generation gap} and propose UniReasoner, a framework that leverages the LLM as a universal reasoner to convert its understanding strength into direct generation guidance. Given a prompt, the LLM first produces a coarse visual draft composed of discrete vision tokens. It then performs a self-critique by evaluating the draft for prompt consistency, producing a grounded textual evaluation that pinpoints what needs to be corrected. Finally, a diffusion model is conditioned jointly on the prompt, the visual draft, and the evaluation, ensuring that generation is guided by explicit corrective signals. Each signal addresses a limitation of the other: the draft provides a concrete, scene-level anchor that reduces under-specification in text-only conditioning, while the evaluation turns verification into grounded, actionable constraints that correct omissions, hallucinations, and relational errors. Experiments show that UniReasoner improves compositional alignment and semantic faithfulness under the same diffusion backbone while maintaining image quality, demonstrating a practical way to exploit LLM reasoning to close the understanding-generation gap.",
+    "url": "http://arxiv.org/abs/2605.04040v1",
+    "authors": [
+      "Sucheng Ren",
+      "Chen Chen",
+      "Zhenbang Wang",
+      "Liangchen Song",
+      "Xiangxin Zhu",
+      "Alan Yuille",
+      "Liang-Chieh Chen",
+      "Jiasen Lu"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "OpenSeeker-v2: Pushing the Limits of Search Agents with Informative and High-Difficulty Trajectories",
+    "abstract": "Deep search capabilities have become an indispensable competency for frontier Large Language Model (LLM) agents, yet their development remains dominated by industrial giants. The typical industry recipe involves a highly resource-intensive pipeline spanning pre-training, continual pre-training (CPT), supervised fine-tuning (SFT), and reinforcement learning (RL). In this report, we show that when fueled with informative and high-difficulty trajectories, a simple SFT approach could be surprisingly powerful for training frontier search agents. By introducing three simple data synthesis modifications: scaling knowledge graph size for richer exploration, expanding the tool set size for broader functionality, and strict low-step filtering, we establish a stronger baseline. Trained on merely 10.6k data points, our OpenSeeker-v2 achieves state-of-the-art performance across 4 benchmarks (30B-sized agents with ReAct paradigm): 46.0% on BrowseComp, 58.1% on BrowseComp-ZH, 34.6% on Humanity's Last Exam, and 78.0% on xbench, surpassing even Tongyi DeepResearch trained with heavy CPT+SFT+RL pipeline, which achieves 43.4%, 46.7%, 32.9%, and 75.0%, respectively. Notably, OpenSeeker-v2 represents the first state-of-the-art search agent within its model scale and paradigm to be developed by a purely academic team using only SFT. We are excited to open-source the OpenSeeker-v2 model weights and share our simple yet effective findings to make frontier search agent research more accessible to the community.",
+    "url": "http://arxiv.org/abs/2605.04036v1",
+    "authors": [
+      "Yuwen Du",
+      "Rui Ye",
+      "Shuo Tang",
+      "Keduan Huang",
+      "Xinyu Zhu",
+      "Yuzhu Cai",
+      "Siheng Chen"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "RD-ViT: Recurrent-Depth Vision Transformer for Semantic Segmentation with Reduced Data Dependence Extending the Recurrent-Depth Transformer Architecture to Dense Prediction",
+    "abstract": "Vision Transformers (ViTs) achieve state-of-the-art segmentation accuracy but require large training datasets because each layer has unique parameters that must be learned independently. We present RD-ViT, a Recurrent-Depth Vision Transformer that adapts the Recurrent-Depth Transformer (RDT) architecture to dense prediction tasks, supporting both 2D and 3D inputs. RD-ViT replaces the deep stack of unique transformer blocks with a single shared block looped T times, augmented with LTI-stable state injection for guaranteed convergence, Adaptive Computation Time (ACT) for spatial compute allocation, depth-wise LoRA adaptation, and optional Mixture-of-Experts (MoE) feed-forward networks for category-specific specialization. We evaluate on the ACDC cardiac MRI segmentation benchmark in both 2D slice-level and 3D volumetric settings with exclusively real experiments executed in Google Colab. In 2D, RD-ViT outperforms standard ViT at 10% training data (Dice 0.774 vs 0.762) and at full data (0.882 vs 0.872). In 3D, RD-ViT with MoE achieves Dice 0.812 with 3.0M parameters, reaching 99.4% of standard ViT performance (0.817) at 53% of the parameter count. MoE expert utilization analysis reveals that different experts spontaneously specialize for different cardiac structures (RV, MYO, LV) without explicit routing supervision. ACT halting maps show higher compute allocation at cardiac boundaries, and the mean ponder time decreases from 2.6 to 1.4 iterations during training, demonstrating learned computational efficiency. Depth extrapolation enables inference with more loops than training without degradation. All code, notebooks, and results are publicly released.",
+    "url": "http://arxiv.org/abs/2605.03999v1",
+    "authors": [
+      "Renjie He"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "Discovering Reaction Mechanisms with Transition Path Sampling-Based Active Learning of Machine-Learned Potentials",
+    "abstract": "Machine-learned interatomic potentials (MLPs) provide near density functional theory (DFT) accuracy at reduced computational cost, but their reliability depends on representative training data and often deteriorates in transition-state regions governing rare events. We introduce an active-learning framework in which Transition Path Sampling (TPS) serves as a targeted data-generation engine for constructing MLPs accurate in barrier regions. TPS generates ensembles of unbiased reactive trajectories, and a committee-based uncertainty estimate identifies configurations for selective DFT labeling and retraining. Iterating this cycle systematically refines the potential energy surface in dynamically relevant regions, without the need of prior knowledge of the mechanism. Applied to electrochemical CO$_2$ reduction to CO on copper in explicit water, the approach removes nonphysical artifacts present in early models, achieves near-DFT energy and force accuracy, and enables stable long-time sampling of reactive pathways. Extended TPS simulations reveal multiple dynamically accessible protonation mechanisms. This work establishes TPS as an efficient and principled active-learning strategy for reactive molecular simulations at electrochemical interfaces.",
+    "url": "http://arxiv.org/abs/2605.03737v1",
+    "authors": [
+      "Ashique Lal",
+      "Rik S. Breebaart",
+      "Peter G. Bolhuis",
+      "Evert Jan Meijer"
+    ],
+    "source": "ArXiv"
+  },
+  {
+    "title": "An Overview of Google Brain and Its Applications",
+    "abstract": "",
+    "url": "https://www.semanticscholar.org/paper/a17f0aede0a4e957de4d4c2e1d33e22411c727bb",
+    "authors": [
+      "Mallory Helms",
+      "S. Ault",
+      "Guifen Mao",
+      "Jin Wang"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "AlphaEvolve: A coding agent for scientific and algorithmic discovery",
+    "abstract": "In this white paper, we present AlphaEvolve, an evolutionary coding agent that substantially enhances capabilities of state-of-the-art LLMs on highly challenging tasks such as tackling open scientific problems or optimizing critical pieces of computational infrastructure. AlphaEvolve orchestrates an autonomous pipeline of LLMs, whose task is to improve an algorithm by making direct changes to the code. Using an evolutionary approach, continuously receiving feedback from one or more evaluators, AlphaEvolve iteratively improves the algorithm, potentially leading to new scientific and practical discoveries. We demonstrate the broad applicability of this approach by applying it to a number of important computational problems. When applied to optimizing critical components of large-scale computational stacks at Google, AlphaEvolve developed a more efficient scheduling algorithm for data centers, found a functionally equivalent simplification in the circuit design of hardware accelerators, and accelerated the training of the LLM underpinning AlphaEvolve itself. Furthermore, AlphaEvolve discovered novel, provably correct algorithms that surpass state-of-the-art solutions on a spectrum of problems in mathematics and computer science, significantly expanding the scope of prior automated discovery methods (Romera-Paredes et al., 2023). Notably, AlphaEvolve developed a search algorithm that found a procedure to multiply two $4 \\times 4$ complex-valued matrices using $48$ scalar multiplications; offering the first improvement, after 56 years, over Strassen's algorithm in this setting. We believe AlphaEvolve and coding agents like it can have a significant impact in improving solutions of problems across many areas of science and computation.",
+    "url": "https://www.semanticscholar.org/paper/ed32e5bb11a9e5e2f03ea805782e8670a6e10efd",
+    "authors": [
+      "Alexander Novikov",
+      "Ngân V˜u",
+      "Marvin Eisenberger",
+      "Emilien Dupont",
+      "Po-Sen Huang",
+      "Adam Zsolt Wagner",
+      "S. Shirobokov",
+      "B. Kozlovskii",
+      "Francisco J. R. Ruiz",
+      "Abbas Mehrabian",
+      "M. P. Kumar",
+      "Abigail See",
+      "Swarat Chaudhuri",
+      "George Holland",
+      "Alex Davies",
+      "Sebastian Nowozin",
+      "Pushmeet Kohli",
+      "Matej Balog",
+      "Google DeepMind"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "How much do language models memorize?",
+    "abstract": "We propose a new method for estimating how much a model knows about a datapoint and use it to measure the capacity of modern language models. Prior studies of language model memorization have struggled to disentangle memorization from generalization. We formally separate memorization into two components: unintended memorization, the information a model contains about a specific dataset, and generalization, the information a model contains about the true data-generation process. When we completely eliminate generalization, we can compute the total memorization, which provides an estimate of model capacity: our measurements estimate that GPT-style models have a capacity of approximately 3.6 bits per parameter. We train language models on datasets of increasing size and observe that models memorize until their capacity fills, at which point\"grokking\"begins, and unintended memorization decreases as models begin to generalize. We train hundreds of transformer language models ranging from $500K$ to $1.5B$ parameters and produce a series of scaling laws relating model capacity and data size to membership inference.",
+    "url": "https://www.semanticscholar.org/paper/92c7e90d006c59e20f8ba093fd04189563dc474f",
+    "authors": [
+      "John X. Morris",
+      "Chawin Sitawarin",
+      "Chuan Guo",
+      "Narine Kokhlikyan",
+      "G. E. Suh",
+      "Alexander M. Rush",
+      "Kamalika Chaudhuri",
+      "Saeed Mahloujifar",
+      "Fair at Meta",
+      "Google DeepMind"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "Evaluating Gemini Robotics Policies in a Veo World Simulator",
+    "abstract": "Generative world models hold significant potential for simulating interactions with visuomotor policies in varied environments. Frontier video models can enable generation of realistic observations and environment interactions in a scalable and general manner. However, the use of video models in robotics has been limited primarily to in-distribution evaluations, i.e., scenarios that are similar to ones used to train the policy or fine-tune the base video model. In this report, we demonstrate that video models can be used for the entire spectrum of policy evaluation use cases in robotics: from assessing nominal performance to out-of-distribution (OOD) generalization, and probing physical and semantic safety. We introduce a generative evaluation system built upon a frontier video foundation model (Veo). The system is optimized to support robot action conditioning and multi-view consistency, while integrating generative image-editing and multi-view completion to synthesize realistic variations of real-world scenes along multiple axes of generalization. We demonstrate that the system preserves the base capabilities of the video model to enable accurate simulation of scenes that have been edited to include novel interaction objects, novel visual backgrounds, and novel distractor objects. This fidelity enables accurately predicting the relative performance of different policies in both nominal and OOD conditions, determining the relative impact of different axes of generalization on policy performance, and performing red teaming of policies to expose behaviors that violate physical or semantic safety constraints. We validate these capabilities through 1600+ real-world evaluations of eight Gemini Robotics policy checkpoints and five tasks for a bimanual manipulator.",
+    "url": "https://www.semanticscholar.org/paper/7631955f7d8a6b9f3ab1973a8dfd8504d9e6782b",
+    "authors": [
+      "G. Team",
+      "Google DeepMind"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "UvA-DARE (Digital Academic Repository) Natural Graph Networks",
+    "abstract": "",
+    "url": "https://www.semanticscholar.org/paper/465558b693378e15631f9bc90cea24602fd4c721",
+    "authors": [
+      "Pim de Haan Qualcomm",
+      "AI Research",
+      "Taco Cohen",
+      "M. Welling"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "ChatDoctor: A Medical Chat Model Fine-Tuned on a Large Language Model Meta-AI (LLaMA) Using Medical Domain Knowledge",
+    "abstract": "Objective The primary aim of this research was to address the limitations observed in the medical knowledge of prevalent large language models (LLMs) such as ChatGPT, by creating a specialized language model with enhanced accuracy in medical advice. Methods We achieved this by adapting and refining the large language model meta-AI (LLaMA) using a large dataset of 100,000 patient-doctor dialogues sourced from a widely used online medical consultation platform. These conversations were cleaned and anonymized to respect privacy concerns. In addition to the model refinement, we incorporated a self-directed information retrieval mechanism, allowing the model to access and utilize real-time information from online sources like Wikipedia and data from curated offline medical databases. Results The fine-tuning of the model with real-world patient-doctor interactions significantly improved the model's ability to understand patient needs and provide informed advice. By equipping the model with self-directed information retrieval from reliable online and offline sources, we observed substantial improvements in the accuracy of its responses. Conclusion Our proposed ChatDoctor, represents a significant advancement in medical LLMs, demonstrating a significant improvement in understanding patient inquiries and providing accurate advice. Given the high stakes and low error tolerance in the medical field, such enhancements in providing accurate and reliable information are not only beneficial but essential.",
+    "url": "https://www.semanticscholar.org/paper/4a7f6c4e71e20311ade4e76e8d0945d499c31fcd",
+    "authors": [
+      "Yunxiang Li",
+      "Zihan Li",
+      "Kai Zhang",
+      "Ruilong Dan",
+      "Steven Jiang",
+      "You Zhang"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "Chat GPT, Gemini or Meta AI: A comparison of AI platforms as a tool for answering higher-order questions in microbiology",
+    "abstract": "Introduction: Artificial intelligence (AI) platforms have achieved a noteworthy role in various fields of medical sciences, ranging from medical education to clinical diagnostics and treatment. ChatGPT, Gemini, and Meta AI are some large language models (LLMs) that have gained immense popularity among students for solving questions from different branches of education. Materials and Methods: A cross-sectional study was conducted in the Department of Microbiology to assess the performance of ChatGPT, Gemini, and Meta AI in answering higher-order questions from various competencies of the microbiology curriculum (MI 1 to 8), according to CBME guidelines. Sixty higher-order questions were compiled from university question papers of two universities. Their responses were assessed by three faculty members from the department. Results: The mean rank scores of ChatGPT, Gemini, and Meta AI were found to be 102.76, 108.5, and 60.23 by Evaluator 1; 106.03, 88.5, and 76.95 by Evaluator 2; and 104.85, 85.6, and 81.04, respectively, indicating lowest overall mean rank score for Meta AI. ChatGPT had the highest mean score in MI 2,3,5,6,7, and 8 competencies, while Gemini had a higher score for MI 1 and 4 competencies. A qualitative assessment of the three platforms was also performed. ChatGPT provided elaborative responses, some responses from Gemini lacked certain significant points, and Meta AI gave answers in bullet points. Conclusions: Both ChatGPT and Gemini have created vast databases to correctly respond to higher-order queries in medical microbiology in comparison to Meta AI. Our study is the first of its kind to compare these three popular LLM platforms for microbiology.",
+    "url": "https://www.semanticscholar.org/paper/7b17743573ef2f5efa0f3ad2b9552c2d48e58d9b",
+    "authors": [
+      "RD Roy",
+      "Sd Gupta",
+      "D. Das",
+      "PD Chowdhury"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "Explainable AI in Clinical Decision Support Systems: A Meta-Analysis of Methods, Applications, and Usability Challenges",
+    "abstract": "Background: Theintegration of artificial intelligence (AI) into clinical decision support systems (CDSSs) has significantly enhanced diagnostic precision, risk stratification, and treatment planning. AI models remain a barrier to clinical adoption, emphasizing the critical role of explainable AI (XAI). Methods: This systematic meta-analysis synthesizes findings from 62 peer-reviewed studies published between 2018 and 2025, examining the use of XAI methods within CDSSs across various clinical domains, including radiology, oncology, neurology, and critical care. Model-agnostic techniques such as visualization models like Gradient-weighted Class Activation Mapping (Grad-CAM) and attention mechanisms dominated in imaging and sequential data tasks. Results: However, there are still gaps in user-friendly evaluation, methodological transparency, and ethical issues, as seen by the absence of research that evaluated explanation fidelity, clinician trust, or usability in real-world settings. In order to enable responsible AI implementation in healthcare, our analysis emphasizes the necessity of longitudinal clinical validation, participatory system design, and uniform interpretability measures. Conclusions: This review offers a thorough analysis of the state of XAI practices in CDSSs today, identifies methodological and practical issues, and suggests a path forward for AI solutions that are open, moral, and clinically relevant.",
+    "url": "https://www.semanticscholar.org/paper/406516bba83884e26dfe744a2b20fa3b7c61bf52",
+    "authors": [
+      "Qaiser Abbas",
+      "Woonyoung Jeong",
+      "S. Lee"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "Human-Centered Explainable AI (XAI): From Algorithms to User Experiences",
+    "abstract": "In recent years, the field of explainable AI (XAI) has produced a vast collection of algorithms, providing a useful toolbox for researchers and practitioners to build XAI applications. With the rich application opportunities, explainability is believed to have moved beyond a demand by data scientists or researchers to comprehend the models they develop, to an essential requirement for people to trust and adopt AI deployed in numerous domains. However, explainability is an inherently human-centric property and the field is starting to embrace human-centered approaches. Human-computer interaction (HCI) research and user experience (UX) design in this area are becoming increasingly important. In this chapter, we begin with a high-level overview of the technical landscape of XAI algorithms, then selectively survey our own and other recent HCI works that take human-centered approaches to design, evaluate, and provide conceptual and methodological tools for XAI. We ask the question\"what are human-centered approaches doing for XAI\"and highlight three roles that they play in shaping XAI technologies by helping navigate, assess and expand the XAI toolbox: to drive technical choices by users' explainability needs, to uncover pitfalls of existing XAI methods and inform new methods, and to provide conceptual frameworks for human-compatible XAI.",
+    "url": "https://www.semanticscholar.org/paper/5e1746995debd1f17c24af01514c727598cc5613",
+    "authors": [
+      "Q. Liao",
+      "Microsoft Research",
+      "Canada Kush",
+      "R. Varshney",
+      "Kush R. Varshney"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "EvoPrompt: Connecting LLMs with Evolutionary Algorithms Yields Powerful Prompt Optimizers",
+    "abstract": "Large Language Models (LLMs) excel in various tasks, but they rely on carefully crafted prompts that often demand substantial human effort. To automate this process, in this paper, we propose a novel framework for discrete prompt optimization, called EvoPrompt, which borrows the idea of evolutionary algorithms (EAs) as they exhibit good performance and fast convergence. To enable EAs to work on discrete prompts, which are natural language expressions that need to be coherent and human-readable, we connect LLMs with EAs. This approach allows us to simultaneously leverage the powerful language processing capabilities of LLMs and the efficient optimization performance of EAs. Specifically, abstaining from any gradients or parameters, EvoPrompt starts from a population of prompts and iteratively generates new prompts with LLMs based on the evolutionary operators, improving the population based on the development set. We optimize prompts for both closed- and open-source LLMs including GPT-3.5 and Alpaca, on 31 datasets covering language understanding, generation tasks, as well as BIG-Bench Hard (BBH) tasks. EvoPrompt significantly outperforms human-engineered prompts and existing methods for automatic prompt generation (e.g., up to 25% on BBH). Furthermore, EvoPrompt demonstrates that connecting LLMs with EAs creates synergies, which could inspire further research on the combination of LLMs and conventional algorithms.",
+    "url": "https://www.semanticscholar.org/paper/a9c75cf664f675a1b4034b0256ec3c5168e293df",
+    "authors": [
+      "Qingyan Guo",
+      "Rui Wang",
+      "Junliang Guo",
+      "Bei Li",
+      "Kaitao Song",
+      "Xu Tan",
+      "Guoqing Liu",
+      "Jiang Bian",
+      "Yujiu Yang",
+      "Tsinghua University",
+      "Microsoft Research"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "Home automation in the wild: challenges and opportunities",
+    "abstract": "",
+    "url": "https://www.semanticscholar.org/paper/51b3125609a84cf13900bcabfcdfd707d4c7c41b",
+    "authors": [
+      "A. J. Bernheim Brush",
+      "Bongshin Lee",
+      "Ratul Mahajan",
+      "S. Agarwal",
+      "S. Saroiu",
+      "Colin Dixon",
+      "Microsoft Research"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "Using Machine Learning to Identify Diseases and Perform Sorting in Apple Fruit",
+    "abstract": "Fruit diseases play a major role in global agriculture, leading to substantial crop losses and influencing food production and economic stability. In this age of Industry 4.0 the fruit sorting is an important part in the food processing wherein this work plays a vital role. In this study, a solution for the detection and classification of apple fruit diseases is proposed and experimentally validated. Deep learning models offer promise for automating disease identification using fruit images, but encounter obstacles such as therequirement for extensive training data, computational complexity, and the risk of overfitting. This study introduces an innovative convolutional neural network (CNN) architecture aimed at addressing these challenges by incorporating a reduced number of layers, thus alleviating computational burdens while maintaining performance. Additionally, augmentation techniques such as shift, shear, scaling, zoom, and flipping are employed to diversify the training set without additional image acquisition. Our CNN model is specifically trained to identify common apple crop diseases like Scab, Rot, and Blotch. Rigorous experimental evaluation demonstrates the effectiveness ofour model, achieving a remarkable classification accuracy of 95.37%. Significantly, our model demonstrates reduced storage requirements and faster execution times compared to existing deep CNN architectures, enabling deployment on handheld devices and resource-limited environments. While other CNN models may offer similar accuracy levels, our approach emphasizes efficiency and resource optimization, rendering it practical for real-world applications in agriculture. Furthermore, our CNN model exhibits resilience to environmental variations and imaging parameters, enhancing its applicability across diverse agricultural settings. By leveraging advanced machine learning techniques, the approach developed in this experimental work contributes to modernizing fruits and vegetables sorting operations in food processing, crop management practices thus promoting agricultural sustainability. The scalability and portability of our model make it suitable for deployment in both small-scale farms and large-scale agricultural operations.",
+    "url": "https://www.semanticscholar.org/paper/0d2c38b39f73003ec23ee3e2382e319e20bd5d18",
+    "authors": [
+      "Arpit Patidar",
+      "Abir Chakravorty"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "Multilingual Speech Translation with Unified Transformer: Huawei Noah’s Ark Lab at IWSLT 2021",
+    "abstract": "This paper describes the system submitted to the IWSLT 2021 Multilingual Speech Translation (MultiST) task from Huawei Noah’s Ark Lab. We use a unified transformer architecture for our MultiST model, so that the data from different modalities (i.e., speech and text) and different tasks (i.e., Speech Recognition, Machine Translation, and Speech Translation) can be exploited to enhance the model’s ability. Specifically, speech and text inputs are firstly fed to different feature extractors to extract acoustic and textual features, respectively. Then, these features are processed by a shared encoder–decoder architecture. We apply several training techniques to improve the performance, including multi-task learning, task-level curriculum learning, data augmentation, etc. Our final system achieves significantly better results than bilingual baselines on supervised language pairs and yields reasonable results on zero-shot language pairs.",
+    "url": "https://www.semanticscholar.org/paper/33ea05476e9c1ff1f5ecb96d740b8b16fe80e744",
+    "authors": [
+      "Xingshan Zeng",
+      "Liangyou Li",
+      "Qun Liu"
+    ],
+    "source": "SemanticScholar"
+  },
+  {
+    "title": "Huawei Noah's Ark Lab at TREC NeuCLIR 2022",
+    "abstract": "",
+    "url": "https://www.semanticscholar.org/paper/9d8238c03dc3811caf453ada3c73e1823a086c50",
+    "authors": [
+      "Ehsan Kamalloo",
+      "David Alfonso-Hermelo",
+      "Mehdi Rezagholizadeh"
+    ],
+    "source": "SemanticScholar"
+  }
+]

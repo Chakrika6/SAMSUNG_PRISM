@@ -1,1 +1,174 @@
-[]
+[
+    {
+        "title": "Exploring the limits of strong membership inference attacks on large language models",
+        "abstract": "State-of-the-art membership inference attacks (MIAs) typically require training many reference models, making it difficult to scale these attacks to large pre-trained language models (LLMs). As a result, prior research has either relied on weaker attacks that avoid training references (e.g., fine-tuning attacks), or on stronger attacks applied to small models and datasets. However, weaker attacks have been shown to be brittle and insights from strong attacks in simplified settings do not translate to today's LLMs. These challenges prompt an important question: are the limitations observed in prior work due to attack design choices, or are MIAs fundamentally ineffective on LLMs? We address this question by scaling LiRA--one of the strongest MIAs--to GPT-2 architectures ranging from 10M to 1B parameters, training references on over 20B tokens from the C4 dataset. Our results advance the understanding of MIAs on LLMs in four key ways. While (1) strong MIAs can succeed on pre-trained LLMs, (2) their effectiveness, remains limited (e.g., AUC<0.7) in practical settings. (3) Even when strong MIAs achieve better-than-random AUC, aggregate metrics can conceal substantial per-sample MIA decision instability: due to training randomness, many decisions are so unstable that they are statistically indistinguishable from a coin flip. Finally, (4) the relationship between MIA success and related LLM privacy metrics is not as straightforward as prior work has suggested.",
+        "url": "https://www.semanticscholar.org/paper/9c97dfbd3b0114a9de358c09d41ad31b8082ade5",
+        "authors": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "source": "Semantic Scholar",
+        "competitor": "Google DeepMind"
+    },
+    {
+        "title": "Privacy Awareness for Information-Sharing Assistants: A Case-study on Form-filling with Contextual Integrity",
+        "abstract": null,
+        "url": "https://www.semanticscholar.org/paper/e2125816783970113d1557934cba8f3c203ee73e",
+        "authors": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "source": "Semantic Scholar",
+        "competitor": "Google DeepMind"
+    },
+    {
+        "title": "Exploring exploration with foundation agents in interactive environments",
+        "abstract": null,
+        "url": "https://www.semanticscholar.org/paper/4a8aa0e0d2a33195dc0fef07fabc30813229bf1d",
+        "authors": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "source": "Semantic Scholar",
+        "competitor": "Google DeepMind"
+    },
+    {
+        "title": "EvoPrompt: Connecting LLMs with Evolutionary Algorithms Yields Powerful Prompt Optimizers",
+        "abstract": "Large Language Models (LLMs) excel in various tasks, but they rely on carefully crafted prompts that often demand substantial human effort. To automate this process, in this paper, we propose a novel framework for discrete prompt optimization, called EvoPrompt, which borrows the idea of evolutionary algorithms (EAs) as they exhibit good performance and fast convergence. To enable EAs to work on discrete prompts, which are natural language expressions that need to be coherent and human-readable, we connect LLMs with EAs. This approach allows us to simultaneously leverage the powerful language processing capabilities of LLMs and the efficient optimization performance of EAs. Specifically, abstaining from any gradients or parameters, EvoPrompt starts from a population of prompts and iteratively generates new prompts with LLMs based on the evolutionary operators, improving the population based on the development set. We optimize prompts for both closed- and open-source LLMs including GPT-3.5 and Alpaca, on 31 datasets covering language understanding, generation tasks, as well as BIG-Bench Hard (BBH) tasks. EvoPrompt significantly outperforms human-engineered prompts and existing methods for automatic prompt generation (e.g., up to 25% on BBH). Furthermore, EvoPrompt demonstrates that connecting LLMs with EAs creates synergies, which could inspire further research on the combination of LLMs and conventional algorithms.",
+        "url": "https://www.semanticscholar.org/paper/a9c75cf664f675a1b4034b0256ec3c5168e293df",
+        "authors": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "source": "Semantic Scholar",
+        "competitor": "Microsoft Research"
+    },
+    {
+        "title": "Evaluating Generative AI Systems is a Social Science Measurement Challenge",
+        "abstract": "Across academia, industry, and government, there is an increasing awareness that the measurement tasks involved in evaluating generative AI (GenAI) systems are especially difficult. We argue that these measurement tasks are highly reminiscent of measurement tasks found throughout the social sciences. With this in mind, we present a framework, grounded in measurement theory from the social sciences, for measuring concepts related to the capabilities, impacts, opportunities, and risks of GenAI systems. The framework distinguishes between four levels: the background concept, the systematized concept, the measurement instrument(s), and the instance-level measurements themselves. This four-level approach differs from the way measurement is typically done in ML, where researchers and practitioners appear to jump straight from background concepts to measurement instruments, with little to no explicit systematization in between. As well as surfacing assumptions, thereby making it easier to understand exactly what the resulting measurements do and do not mean, this framework has two important implications for evaluating evaluations: First, it can enable stakeholders from different worlds to participate in conceptual debates, broadening the expertise involved in evaluating GenAI systems. Second, it brings rigor to operational debates by offering a set of lenses for interrogating the validity of measurement instruments and their resulting measurements.",
+        "url": "https://www.semanticscholar.org/paper/e8f9eed9743523e3ada60c890f4b141035335420",
+        "authors": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "source": "Semantic Scholar",
+        "competitor": "Microsoft Research"
+    },
+    {
+        "title": "NeurIPS 2020 Competition: Predicting Generalization in Deep Learning",
+        "abstract": "Understanding generalization in deep learning is arguably one of the most important questions in deep learning. Deep learning has been successfully adopted to a large number of problems ranging from pattern recognition to complex decision making, but many recent researchers have raised many concerns about deep learning, among which the most important is generalization. Despite numerous attempts, conventional statistical learning approaches have yet been able to provide a satisfactory explanation on why deep learning works. A recent line of works aims to address the problem by trying to predict the generalization performance through complexity measures. In this competition, we invite the community to propose complexity measures that can accurately predict generalization of models. A robust and general complexity measure would potentially lead to a better understanding of deep learning's underlying mechanism and behavior of deep models on unseen data, or shed light on better generalization bounds. All these outcomes will be important for making deep learning more robust and reliable.",
+        "url": "https://www.semanticscholar.org/paper/fcfe652eac7ecae9be5f90ae628ca8ee1122bb82",
+        "authors": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "source": "Semantic Scholar",
+        "competitor": "Microsoft Research"
+    },
+    {
+        "title": "Multilingual Speech Translation with Unified Transformer: Huawei Noah\u2019s Ark Lab at IWSLT 2021",
+        "abstract": "This paper describes the system submitted to the IWSLT 2021 Multilingual Speech Translation (MultiST) task from Huawei Noah\u2019s Ark Lab. We use a unified transformer architecture for our MultiST model, so that the data from different modalities (i.e., speech and text) and different tasks (i.e., Speech Recognition, Machine Translation, and Speech Translation) can be exploited to enhance the model\u2019s ability. Specifically, speech and text inputs are firstly fed to different feature extractors to extract acoustic and textual features, respectively. Then, these features are processed by a shared encoder\u2013decoder architecture. We apply several training techniques to improve the performance, including multi-task learning, task-level curriculum learning, data augmentation, etc. Our final system achieves significantly better results than bilingual baselines on supervised language pairs and yields reasonable results on zero-shot language pairs.",
+        "url": "https://www.semanticscholar.org/paper/33ea05476e9c1ff1f5ecb96d740b8b16fe80e744",
+        "authors": [
+            null,
+            null,
+            null
+        ],
+        "source": "Semantic Scholar",
+        "competitor": "Huawei Noah's Ark Lab"
+    },
+    {
+        "title": "End-to-End Simultaneous Speech Translation with Pretraining and Distillation: Huawei Noah\u2019s System for AutoSimTranS 2022",
+        "abstract": "This paper describes the system submitted to AutoSimTrans 2022 from Huawei Noah\u2019s Ark Lab, which won the first place in the audio input track of the Chinese-English translation task. Our system is based on RealTranS, an end-to-end simultaneous speech translation model. We enhance the model with pretraining, by initializing the acoustic encoder with ASR encoder, and the semantic encoder and decoder with NMT encoder and decoder, respectively. To relieve the data scarcity, we further construct pseudo training corpus as a kind of knowledge distillation with ASR data and the pretrained NMT model. Meanwhile, we also apply several techniques to improve the robustness and domain generalizability, including punctuation removal, token-level knowledge distillation and multi-domain finetuning. Experiments show that our system significantly outperforms the baselines at all latency and also verify the effectiveness of our proposed methods.",
+        "url": "https://www.semanticscholar.org/paper/93d8f4f3cfd8c6e4144bbfdda90cbe26dd1f58e6",
+        "authors": [
+            null,
+            null,
+            null,
+            null
+        ],
+        "source": "Semantic Scholar",
+        "competitor": "Huawei Noah's Ark Lab"
+    }
+]

@@ -14,20 +14,25 @@ import os
 # Add or remove keywords here to tune what RADAR watches.
 # ---------------------------------------------------------------------------
 TOPIC_KEYWORDS = [
-    # Core privacy
+    # 1. Core Inference & NPU
+    "on-device AI inference optimization",
+    "mobile NPU hardware acceleration",
+    "quantization for edge devices",
+
+    # 2. Galaxy Vision Pipeline
+    "mobile computational photography AI",
+    "real-time vision language models",
+    "low light image enhancement deep learning",
+
+    # 3. Samsung Knox Security & Privacy
     "on-device federated learning",
     "differential privacy mobile neural network",
-    "secure enclave AI inference",
-
-    # Security & Robustness
     "adversarial robustness lightweight models",
-    "prompt injection defense local LLM",
-    "edge model security",
 
-    # Samsung Knox specific domains
-    "smartphone hardware security AI",
-    "mobile malicious behavior detection",
-    "trustzone machine learning",
+    # 4. SmartThings & AIoT
+    "edge computing IoT optimization",
+    "low power wireless sensor networks AI",
+    "home automation machine learning",
 ]
 
 # Maximum papers to fetch per keyword from ArXiv

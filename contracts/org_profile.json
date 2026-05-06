@@ -1,0 +1,27 @@
+{
+  "org_name": "Samsung-PRISM-EdgeAI",
+  "global_goals": [
+    "Optimize On-Device AI Performance and Speed for Complex Models (e.g., Vision Transformers, LLMs)",
+    "Enhance Memory and Energy Efficiency across all Edge AI Workloads and Devices",
+    "Maximize Hardware Utilization and Acceleration for Low-Bit Quantization on Mobile NPUs"
+  ],
+  "research_keywords": [
+    "Adaptive Quantization",
+    "Efficient Vision Transformers for Edge",
+    "KV Cache Compression",
+    "Speculative Decoding",
+    "Energy-Aware Edge Inference Scheduling"
+  ],
+  "repo_mapping": {
+    "radar-autonomous-agent": "No specific research needs identified from README snippet; its own function is to identify opportunities.",
+    "core-inference-engine": "Research into adaptive quantization, sparse model techniques, efficient cross-attention mechanisms, and NPU-specific optimizations for INT4/INT8 inference to reduce RAM pressure and improve VLM inference speed.",
+    "galaxy-vision-pipeline": "Research on memory and computationally efficient Vision Transformers (ViT) for mobile devices, advanced low-light denoising with efficient attention mechanisms, and hardware-aware acceleration for vision tasks.",
+    "smartthings-iot-hub": "Research into dynamic, energy-aware scheduling algorithms (TinyML, adaptive polling) for IoT devices and efficient distributed edge inference techniques to extend battery life and reduce data aggregation overhead.",
+    "on-device-llm-runtime": "Research on KV cache compression, paging, and offloading techniques, as well as advanced speculative decoding methods to overcome memory bottlenecks and accelerate token generation for on-device LLMs.",
+    "tizen-samples": "No specific AI/EdgeAI related research needs identified from README snippet; primarily a reference repository.",
+    "OpenSCP-Python": "No specific AI/EdgeAI related research needs identified from README snippet; focuses on secure communication protocols.",
+    "OpenSCP-Java": "No specific AI/EdgeAI related research needs identified from README snippet; focuses on secure communication protocols.",
+    "syzdescriptor": "No specific AI/EdgeAI related research needs identified from README snippet; focuses on kernel fuzzer description generation.",
+    "T-PerfAnalyzer": "No specific AI/EdgeAI related research needs identified from README snippet; focuses on Tizen TV performance analysis tools."
+  }
+}

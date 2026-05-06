@@ -1,11 +1,11 @@
 [
   {
-    "paper_title": "Adaptive Quantization for Vision-Language Models",
-    "url": "https://example.com/adaptive-quantization",
+    "department": "core-inference-engine",
+    "target_entity": "Transformer inference kernels",
+    "paper_title": "RD-ViT: Recurrent-Depth Vision Transformer for Semantic Segmentation with Reduced Data Dependence Extending the Recurrent-Depth Transformer Architecture to Dense Prediction",
+    "url": "http://arxiv.org/abs/2605.03999v1",
     "type": "Opportunity",
-    "reason": "The paper introduces a novel adaptive quantization technique that can reduce RAM consumption and improve inference speed on mobile devices, aligning with our Goal 1 and Goal 2.",
-    "action": "Apply adaptive quantization to the cross-attention mechanism",
-    "target_entity": "forward",
-    "entity_type": "function"
+    "reason": "This paper presents RD-ViT, a Recurrent-Depth Vision Transformer that significantly reduces model parameter count (demonstrating 53% reduction for 3D tasks while maintaining 99.4% performance of standard ViT) by using shared blocks. This directly addresses the 'Memory Optimization' goal to reduce RAM pressure on mid-tier devices (e.g., Galaxy A55 series) by adopting techniques like sparse models or adaptive quantization. Additionally, RD-ViT's Adaptive Computation Time (ACT) mechanism demonstrates learned computational efficiency, which can lead to direct improvements in 'On-Device Speed' for vision-language models by optimizing Transformer inference times, especially for cross-attention bottlenecks on mobile NPUs. The simplified architecture with shared blocks also inherently supports 'Hardware-Specific Tuning' for quantized INT4/INT8 models.",
+    "action": "Initiate a project to evaluate and integrate the Recurrent-Depth Transformer (RDT) architecture, focusing on its shared-block design and Adaptive Computation Time (ACT) mechanism, into our existing C++/Python inference kernels for Transformer-based vision-language models. Develop a prototype refactoring of critical Transformer components, such as cross-attention mechanisms, to leverage the recurrent depth for parameter sharing and dynamic compute allocation. Benchmark the memory footprint and inference speed on Galaxy A55 series devices, specifically targeting INT4/INT8 quantization for optimal NPU utilization, with a goal to achieve the sub-150ms inference target."
   }
 ]
