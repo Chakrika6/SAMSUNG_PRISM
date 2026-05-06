@@ -50,7 +50,7 @@ def heartbeat():
     # Step 3: Call outputs module
     print("Step 3: Dispatching Multi-Repo Actions & Intel...")
     run_script("outputs/github_dispatcher.py")
-    run_script("outputs/auto_pr.py --mock")
+    run_script("outputs/auto_pr.py")
     
     print("\nStep 4: Broadcasting to Telegram (Threats & Trends)...")
     run_script("outputs/send_alert.py")

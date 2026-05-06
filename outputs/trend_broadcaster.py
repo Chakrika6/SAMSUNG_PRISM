@@ -86,7 +86,7 @@ def format_trend_card(trend: dict, index: int, total: int) -> str:
         trend_score  (optional)
     """
     cluster_name    = trend.get("cluster_name",    "Unknown Cluster")
-    paper_count     = trend.get("paper_count",     0)
+    paper_count     = trend.get("papers_last_14_days", trend.get("paper_count", 0))
     timeframe_days  = trend.get("timeframe_days",  14)
     competitors     = trend.get("key_competitors", [])
     implication     = trend.get("implication",     "No implication provided.")

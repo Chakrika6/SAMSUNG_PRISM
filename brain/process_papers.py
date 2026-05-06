@@ -109,26 +109,38 @@ def main():
 
     print("Analyzing intelligence with Gemini 2.0 Flash...")
     try:
-        # Require JSON output matching our schema
-        # Use gemini-2.0-flash for state-of-the-art performance
+        # Use a list of actions in the response schema
         response = client.models.generate_content(
             model="gemini-2.0-flash",
-            contents=prompt,
+            contents=f"""
+            You are an intelligent Samsung R&D research architect. 
+            
+            Here is the combined context of all repositories in our Organization:
+            {repo_context}
+            
+            Here is a list of recently fetched research papers and competitor threats in JSON format:
+            {json.dumps(papers_to_analyze, indent=2)}
+            
+            Your task:
+            1. Analyze the abstracts of these papers against the goals of EVERY repository in the list above.
+            2. Identify ALL highly relevant papers (up to 3) that provide breakthroughs or represent significant threats.
+            3. For each, specify which repository (target_entity) this paper applies to.
+            4. If a paper is from a competitor (labeled 'Threat'), prioritize it.
+            
+            Output a JSON list of objects matching the schema.
+            """,
             config={
                 "response_mime_type": "application/json",
-                "response_schema": PendingAction
+                "response_schema": list[PendingAction]
             }
         )
         
         # Parse the JSON string from Gemini
-        action_data = json.loads(response.text)
-        
-        # The contract requires a list of actions
-        output_data = [action_data]
+        output_data = json.loads(response.text)
 
         with open(PENDING_ACTIONS_PATH, "w", encoding="utf-8") as f:
             json.dump(output_data, f, indent=2)
-            
+                
         print(f"Successfully wrote the selected action to {PENDING_ACTIONS_PATH}")
 
     except Exception as e:
