@@ -1,9 +1,11 @@
 [
   {
-    "paper_title": "Redefining AI Red Teaming in the Agentic Era: From Weeks to Hours",
-    "url": "http://arxiv.org/abs/2605.04019v1",
+    "paper_title": "Adaptive Quantization for Vision-Language Models",
+    "url": "https://example.com/adaptive-quantization",
     "type": "Opportunity",
-    "reason": "This paper is highly relevant to our Goal 2: Adversarial Robustness on Edge. It directly addresses the critical need for mobile AI models to be resilient against prompt injection, adversarial perturbations, and data poisoning attacks. The paper introduces an 'AI red teaming agent' built on the Dreadnode SDK, designed to efficiently identify security and safety vulnerabilities in generative AI systems, including LLMs, through automated attack generation and workflow composition. This aligns perfectly with our objective to develop and validate robust on-device LLMs, as effective red teaming is a prerequisite for understanding and mitigating potential adversarial threats on edge devices like the Galaxy Exynos NPU.",
-    "action": "Investigate integrating the Dreadnode SDK and the proposed agentic red teaming approach into our development and testing pipeline. Prioritize its use to systematically probe our on-device LLMs for prompt injection and adversarial perturbations, providing crucial insights for the design and evaluation of lightweight defensive mechanisms that can run efficiently on the Exynos NPU."
+    "reason": "The paper introduces a novel adaptive quantization technique that can reduce RAM consumption and improve inference speed on mobile devices, aligning with our Goal 1 and Goal 2.",
+    "action": "Apply adaptive quantization to the cross-attention mechanism",
+    "target_entity": "forward",
+    "entity_type": "function"
   }
 ]

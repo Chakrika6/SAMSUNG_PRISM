@@ -32,6 +32,11 @@ from pathlib import Path
 
 from telegram import Bot
 from telegram.constants import ParseMode
+from dotenv import load_dotenv
+
+# Load environment variables from .env in project root
+env_path = Path(__file__).parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
 
 # ---------------------------------------------------------------------------
 # Configuration – set via environment variables or edit directly here

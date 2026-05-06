@@ -103,7 +103,7 @@ def main():
     }
 
     with open(LIVE_TRENDS_PATH, "w", encoding="utf-8") as f:
-        json.dump(trend_output, f, indent=2)
+        json.dump([trend_output], f, indent=2) # Output as a list for the Broadcaster
         
     print(f"Successfully analyzed trends and wrote winning cluster to {LIVE_TRENDS_PATH}")
 
