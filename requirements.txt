@@ -1,0 +1,19 @@
+# --- RADAR System Dependencies ---
+
+# Core Intelligence & LLMs
+google-genai       # Primary: Google Gemini 2.0
+groq              # Fallback: Groq (Llama 3.3 70B)
+requests          # Local Fallback: Ollama connection
+python-dotenv     # Environment variable management
+
+# Data Harvesting & Automation
+PyGithub          # GitHub Organization & Repository management
+pydantic          # Structured output & data validation
+
+# ML & Trend Analysis (Local)
+sentence-transformers  # Local embeddings for research clustering
+scikit-learn           # KMeans clustering for trend detection
+numpy                  # Numerical computations
+
+# Broadcasting & Alerts
+python-telegram-bot  # Direct Telegram API integration (async)
