@@ -1,0 +1,6 @@
+requests
+python-dotenv
+arxiv
+sentence-transformers
+google-genai
+python-telegram-bot

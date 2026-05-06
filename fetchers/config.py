@@ -14,33 +14,20 @@ import os
 # Add or remove keywords here to tune what RADAR watches.
 # ---------------------------------------------------------------------------
 TOPIC_KEYWORDS = [
-    # Core on-device inference
-    "on-device AI inference",
-    "mobile NPU optimization",
-    "edge AI inference latency",
+    # Core privacy
+    "on-device federated learning",
+    "differential privacy mobile neural network",
+    "secure enclave AI inference",
 
-    # Quantization & compression
-    "neural network quantization mobile",
-    "adaptive quantization inference",
-    "model pruning edge deployment",
-    "weight sharing neural network compression",
-    "knowledge distillation lightweight model",
+    # Security & Robustness
+    "adversarial robustness lightweight models",
+    "prompt injection defense local LLM",
+    "edge model security",
 
-    # Transformer & attention optimization
-    "transformer acceleration edge device",
-    "efficient attention mechanism mobile",
-    "vision language model on-device",
-
-    # Memory & compute efficiency
-    "edge model compression",
-    "memory efficient inference neural network",
-    "low power deep learning inference",
-
-    # Samsung-specific domains
-    "on-device large language model",
-    "mobile diffusion model NPU",
-    "real-time object detection mobile",
-    "sparse neural network inference hardware",
+    # Samsung Knox specific domains
+    "smartphone hardware security AI",
+    "mobile malicious behavior detection",
+    "trustzone machine learning",
 ]
 
 # Maximum papers to fetch per keyword from ArXiv

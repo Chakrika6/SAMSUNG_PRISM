@@ -1,7 +1,9 @@
 # Current Repository Context and Goals
 
-## Goal 1: Memory Optimization
-We are currently experiencing high RAM pressure on mid-tier devices (specifically Galaxy A55 series). We need to explore techniques like adaptive quantization or sparse models to reduce footprint during inference.
+## Team: Samsung Knox Security & Privacy Division
 
-## Goal 2: On-Device Speed
-Inference time for vision-language models needs to drop below 150ms on mobile NPUs. Current approaches are bottlenecked by cross-attention mechanisms.
+## Goal 1: Privacy-Preserving On-Device Intelligence
+We are focusing on ensuring that any user data processed by our LLMs stays entirely on-device. We need to implement techniques like local federated learning, secure enclaves, or differential privacy to ensure interaction traces and personal data are never exposed or exfiltrated to the cloud.
+
+## Goal 2: Adversarial Robustness on Edge
+Our mobile AI models must be highly resilient against prompt injection, adversarial perturbations, and data poisoning attacks. We are looking for lightweight defensive mechanisms that can run natively on the Galaxy Exynos NPU without significant latency overhead.

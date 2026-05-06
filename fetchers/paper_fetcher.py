@@ -156,7 +156,18 @@ def fetch_from_semantic_scholar(
 
     for institution in institutions:
         log.info(f"Semantic Scholar → competitor: '{institution}'")
+        # Read the API key from environment
+        import os
+        from dotenv import load_dotenv
+        import time
+        load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
+        api_key = os.environ.get("SEMANTIC_SCHOLAR_API_KEY", "")
+
         try:
+            headers = {}
+            if api_key and api_key != "your_semantic_scholar_api_key_here":
+                headers["x-api-key"] = api_key
+
             resp = requests.get(
                 SEMANTIC_SCHOLAR_BASE_URL,
                 params={
@@ -164,8 +175,10 @@ def fetch_from_semantic_scholar(
                     "fields": SEMANTIC_SCHOLAR_FIELDS,
                     "limit":  max_per_institution,
                 },
+                headers=headers,
                 timeout=SEMANTIC_SCHOLAR_TIMEOUT,
             )
+            time.sleep(1.1)  # Respect 1 req/sec limit
 
             if resp.status_code == 429:
                 log.warning(f"  Rate-limited (429) for '{institution}' — skipping.")

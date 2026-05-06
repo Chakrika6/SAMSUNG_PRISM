@@ -15,6 +15,7 @@ def main():
     incoming_papers_path = os.path.join(base_dir, "contracts", "incoming_papers.json")
     repo_context_path = os.path.join(base_dir, "data", "repo_context.md")
     pending_actions_path = os.path.join(base_dir, "contracts", "pending_actions.json")
+    live_trends_path = os.path.join(base_dir, "contracts", "live_trends.json")
 
     # Read inputs
     try:
@@ -83,10 +84,67 @@ Make sure the output is valid JSON.
             json.dump(parsed_output, f, indent=2)
             
         print(f"Successfully generated pending actions and saved to {pending_actions_path}")
-        print(json.dumps(parsed_output, indent=2))
         
     except Exception as e:
-        print(f"Error calling Gemini API or processing response: {e}")
+        print(f"Error generating pending actions: {e}")
+
+    # ==============================================================
+    # 2. TREND & THREAT ANALYSIS
+    # ==============================================================
+    prompt_trends = f"""
+You are an expert AI trend and threat analyst.
+Here are our current repository goals:
+---
+{context}
+---
+
+Here is the list of incoming research papers from competitors and the broader community:
+---
+{json.dumps(papers, indent=2)}
+---
+
+Your task is to identify EXACTLY ONE major emerging trend or competitor threat from these papers that relates to our goals.
+
+Return your analysis as a JSON array with exactly one object matching this structure:
+[
+  {{
+    "cluster_name": "Name of the trend or threat",
+    "paper_count": <approximate number of related papers from the list>,
+    "timeframe_days": 14,
+    "key_competitors": ["Competitor A", "Competitor B"],
+    "implication": "What this means for our team's strategy and roadmap",
+    "trend_score": <number between 1 and 100 representing severity/importance>,
+    "top_paper": {{
+      "title": "Most representative paper title",
+      "url": "https://url-to-paper"
+    }}
+  }}
+]
+
+Make sure the output is valid JSON.
+"""
+
+    print("\nAnalyzing papers for Macro Trends & Threats...")
+    try:
+        response_trends = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt_trends,
+            config={"response_mime_type": "application/json"}
+        )
+        output_trends_json = response_trends.text
+        
+        parsed_trends = json.loads(output_trends_json)
+        
+        if not isinstance(parsed_trends, list):
+            parsed_trends = [parsed_trends]
+            
+        with open(live_trends_path, "w", encoding="utf-8") as f:
+            json.dump(parsed_trends, f, indent=2)
+            
+        print(f"Successfully generated trend analysis and saved to {live_trends_path}")
+        
+    except Exception as e:
+        print(f"Error generating trend analysis: {e}")
 
 if __name__ == "__main__":
     main()

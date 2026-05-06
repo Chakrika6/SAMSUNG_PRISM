@@ -49,7 +49,7 @@ GITHUB_REPO:    str = os.getenv("GITHUB_REPO",    "Chakrika6/SAMSUNG_PRISM")
 GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY", "AIzaSyA2QgAdSUPvOxtScOAoGd1UJ4O5O-culrQ")
 
 # gemini-2.0-flash-lite: confirmed available on free-tier API keys
-GEMINI_MODEL = "gemini-2.0-flash-lite"
+GEMINI_MODEL = "gemini-2.5-flash"
 
 # Branch prefix for every auto-generated PR
 BRANCH_PREFIX = "radar/auto-coder"

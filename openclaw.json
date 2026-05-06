@@ -1,0 +1,43 @@
+{
+  "agents": {
+    "defaults": {
+      "skills": [
+        "radar-run",
+        "radar-fetch",
+        "radar-analyze",
+        "radar-pr",
+        "radar-alert",
+        "radar-status"
+      ]
+    },
+    "list": [
+      {
+        "id": "radar",
+        "name": "RADAR",
+        "emoji": "🔬",
+        "soul": "./SOUL.md",
+        "heartbeat": "./HEARTBEAT.md",
+        "skills": [
+          "radar-run",
+          "radar-fetch",
+          "radar-analyze",
+          "radar-pr",
+          "radar-alert",
+          "radar-status"
+        ]
+      }
+    ]
+  },
+  "skills": {
+    "load": {
+      "extraDirs": [
+        "./openclaw/skills"
+      ]
+    }
+  },
+  "gateway": {
+    "controlUi": {
+      "enabled": true
+    }
+  }
+}

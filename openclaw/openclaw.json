@@ -1,0 +1,25 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "c:\\Users\\sahit\\Desktop\\Samsung-Prism\\SAMSUNG_PRISM"
+    },
+    "list": [
+      {
+        "id": "radar",
+        "name": "RADAR"
+      }
+    ]
+  },
+  "skills": {
+    "load": {
+      "extraDirs": [
+        "c:\\Users\\sahit\\Desktop\\Samsung-Prism\\SAMSUNG_PRISM\\skills"
+      ]
+    }
+  },
+  "gateway": {
+    "controlUi": {
+      "enabled": true
+    }
+  }
+}
