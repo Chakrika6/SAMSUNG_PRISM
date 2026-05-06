@@ -80,7 +80,11 @@ def _get_profile_embedding(model):
     # Try dynamic profile first
     try:
         profile_text = build_dynamic_profile()
-        log.info("Using DYNAMIC Samsung research profile for scoring.")
+        if not profile_text or len(profile_text.strip()) < 10:
+            log.warning("Dynamic profile too short or empty — using static fallback.")
+            profile_text = SAMSUNG_RESEARCH_PROFILE
+        else:
+            log.info("Using DYNAMIC Samsung research profile for scoring.")
     except Exception as exc:
         log.warning(f"Dynamic profile build failed ({exc}) — using static fallback.")
         profile_text = SAMSUNG_RESEARCH_PROFILE
@@ -107,8 +111,8 @@ def score_papers(papers: list[dict]) -> list[dict]:
     (with _relevance_score = 1.0 so nothing is dropped).
     """
     model = _get_model()
-    if model is None:
-        # Graceful fallback — no filtering
+    if model is None or not papers:
+        # Graceful fallback — no filtering or no papers to score
         for p in papers:
             p["_relevance_score"] = 1.0
         return papers

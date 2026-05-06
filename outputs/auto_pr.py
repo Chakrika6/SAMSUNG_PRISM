@@ -40,13 +40,19 @@ from pathlib import Path
 from google import genai
 from google.genai import types as genai_types
 from github import Github, GithubException
+from dotenv import load_dotenv
+
+# Load environment variables from .env in project root
+env_path = Path(__file__).parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
 
 # ---------------------------------------------------------------------------
 # Configuration – set via environment variables OR edit directly here
 # ---------------------------------------------------------------------------
-GITHUB_TOKEN:   str = os.getenv("GITHUB_TOKEN",   "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")
-GITHUB_REPO:    str = os.getenv("GITHUB_REPO",    "Chakrika6/SAMSUNG_PRISM")
-GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY", "AIzaSyA2QgAdSUPvOxtScOAoGd1UJ4O5O-culrQ")
+GITHUB_TOKEN:   str = os.getenv("GITHUB_TOKEN")
+GITHUB_ORG:     str = os.getenv("GITHUB_ORG")   # New: Support for Org-wide PRs
+GITHUB_REPO:    str = os.getenv("GITHUB_REPO")
+GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY")
 
 # gemini-2.0-flash-lite: confirmed available on free-tier API keys
 GEMINI_MODEL = "gemini-2.0-flash-lite"
@@ -453,18 +459,46 @@ def build_pr_body(alert: dict, branch: str, file_path: str, generated_at: str) -
     """).strip()
 
 
-def create_pull_request(token: str, repo_name: str, alert: dict, code: str) -> str:
+def find_best_repo(g, org_name, target_entity, fallback_repo=None):
+    """Identical to dispatcher logic: find the best repo for the entity."""
+    if not org_name:
+        if fallback_repo:
+            return g.get_repo(fallback_repo)
+        return None
+
+    try:
+        org = g.get_organization(org_name)
+        repos = org.get_repos()
+        target_entity_clean = target_entity.lower().replace(" ", "-")
+        for repo in repos:
+            if target_entity_clean in repo.name.lower():
+                return repo
+        if fallback_repo:
+            return g.get_repo(fallback_repo)
+        return None
+    except Exception as e:
+        safe_print(f"[ERROR] Could not query organization '{org_name}': {e}")
+        return None
+
+def create_pull_request(token: str, org_name: str, fallback_repo: str, alert: dict, code: str) -> str:
     """
-    1. Get default branch SHA
-    2. Create feature branch
-    3. Commit generated code
-    4. Open PR
-    Returns the PR HTML URL.
+    1. Find target repo in Org
+    2. Get default branch SHA
+    3. Create feature branch
+    4. Commit generated code
+    5. Open PR
     """
     g    = Github(token)
-    repo = g.get_repo(repo_name)
-
+    
     target_entity = alert.get("target_entity", "algorithm")
+    repo = find_best_repo(g, org_name, target_entity, fallback_repo)
+
+    if not repo:
+        safe_print(f"[WARN] Skipping PR: Could not find target repo for entity '{target_entity}'")
+        return None
+
+    safe_print(f"[INFO] Routing PR for '{target_entity}' to repo: {repo.full_name}")
+
     slug          = slugify(target_entity)
     timestamp     = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     branch_name   = f"{BRANCH_PREFIX}/{slug}-{timestamp}"
@@ -574,8 +608,9 @@ def run_auto_coder(alerts: list[dict], mock: bool = False) -> None:
                 safe_print(f"[GEMINI] Code generated ({len(code)} chars).")
 
             # Step B — commit + PR
-            pr_url = create_pull_request(GITHUB_TOKEN, GITHUB_REPO, alert, code)
-            pr_urls.append(pr_url)
+            pr_url = create_pull_request(GITHUB_TOKEN, GITHUB_ORG, GITHUB_REPO, alert, code)
+            if pr_url:
+                pr_urls.append(pr_url)
 
         except Exception as exc:
             safe_print(f"[ERROR] Failed for '{entity}': {exc}")

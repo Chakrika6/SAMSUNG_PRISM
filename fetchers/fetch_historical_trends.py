@@ -17,7 +17,6 @@ def fetch_historical_trends():
     # ArXiv doesn't have a direct API endpoint in config, so we use the standard one.
     base_url = getattr(config, "ARXIV_BASE_URL", "http://export.arxiv.org/api/query")
     url = f"{base_url}?search_query={urllib.parse.quote(search_query)}&sortBy=submittedDate&sortOrder=descending&max_results={max_results}"
-    
     print(f"Fetching historical trends from ArXiv (up to {max_results} recent papers)...")
     
     trend_data = []

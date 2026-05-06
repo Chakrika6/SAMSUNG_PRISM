@@ -86,30 +86,74 @@ Find exactly one highly relevant paper that matches the goals.
 Crucially, you must identify WHAT specific code entity this paper affects from the provided codebase entities.
 
 Output exactly one JSON object representing the action to take. 
+The "type" field MUST ALWAYS BE exactly the string "Opportunity".
 Do NOT wrap it in a list, just return the JSON object matching the requested schema.
 """
 
     print("Analyzing papers and mapping to codebase using Gemini...")
-    try:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
-            config={
-                "response_mime_type": "application/json",
-                "response_schema": PendingAction
-            }
-        )
-        
-        action_data = json.loads(response.text)
-        output_data = [action_data]
-
-        with open(PENDING_ACTIONS_PATH, "w", encoding="utf-8") as f:
-            json.dump(output_data, f, indent=2)
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=prompt,
+                config={
+                    "response_mime_type": "application/json",
+                    "response_schema": PendingAction
+                }
+            )
             
-        print(f"Successfully mapped paper to {action_data.get('target_entity')} and wrote to {PENDING_ACTIONS_PATH}")
+            action_data = json.loads(response.text)
+            output_data = [action_data]
 
-    except Exception as e:
-        print(f"Error communicating with Gemini or writing output: {e}")
+            with open(PENDING_ACTIONS_PATH, "w", encoding="utf-8") as f:
+                json.dump(output_data, f, indent=2)
+                
+            print(f"Successfully mapped paper to {action_data.get('target_entity')} and wrote to {PENDING_ACTIONS_PATH}")
+            break # Success, exit retry loop
+
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+            if attempt < max_retries - 1:
+                print("Retrying in 5 seconds...")
+                import time
+                time.sleep(5)
+            else:
+                print("Error communicating with Gemini after all retries.")
+                print("Falling back to Groq API...")
+                
+                groq_api_key = os.environ.get("GROQ_API_KEY")
+                if not groq_api_key:
+                    print("GROQ_API_KEY not set. Cannot use fallback.")
+                    return
+                    
+                try:
+                    from groq import Groq
+                    groq_client = Groq(api_key=groq_api_key)
+                    
+                    groq_prompt = prompt + "\nEnsure the JSON object has exactly these keys: paper_title, url, type, reason, action, target_entity, entity_type"
+                    
+                    completion = groq_client.chat.completions.create(
+                        model="llama-3.3-70b-versatile",
+                        messages=[
+                            {
+                                "role": "user",
+                                "content": groq_prompt
+                            }
+                        ],
+                        response_format={"type": "json_object"}
+                    )
+                    
+                    action_data = json.loads(completion.choices[0].message.content)
+                    output_data = [action_data]
+
+                    with open(PENDING_ACTIONS_PATH, "w", encoding="utf-8") as f:
+                        json.dump(output_data, f, indent=2)
+                        
+                    print(f"Successfully mapped paper to {action_data.get('target_entity')} using Groq and wrote to {PENDING_ACTIONS_PATH}")
+                    
+                except Exception as groq_e:
+                    print(f"Groq fallback also failed: {groq_e}")
 
 if __name__ == "__main__":
     main()
