@@ -1,13 +1,9 @@
 import json
 import os
-from google import genai
+from brain.llm_client import LLMClient
 
-# Configure API key from environment variable
-api_key = os.environ.get("GOOGLE_API_KEY")
-if not api_key:
-    print("Warning: GOOGLE_API_KEY not found in environment variables. Please set it before running.")
-
-client = genai.Client(api_key=api_key)
+# Initialize the resilient client
+client = LLMClient()
 
 def main():
     # Define file paths relative to this script
@@ -61,15 +57,15 @@ Return your analysis as a JSON array with exactly one object matching this struc
 Make sure the output is valid JSON.
 """
 
-    # Call Gemini API
-    print("Analyzing papers with Gemini...")
+    # Call Resilient LLM API
+    print("Analyzing papers with Resilient LLM (Gemini -> Groq -> Ollama)...")
     try:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
-            config={"response_mime_type": "application/json"}
-        )
-        output_json = response.text
+        output_json = client.generate_content(prompt)
+        
+        # Strip potential markdown fences if the LLM returned them
+        if output_json.startswith("```"):
+            lines = output_json.splitlines()
+            output_json = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
         
         # Validate that it parses as JSON
         parsed_output = json.loads(output_json)

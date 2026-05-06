@@ -1,37 +1,16 @@
 import os
 import json
-from google import genai
-from pydantic import BaseModel, Field
+from brain.llm_client import LLMClient
 
-# Ensure we have the API key
-api_key = os.environ.get("GOOGLE_API_KEY")
-if not api_key:
-    # Try loading from .env
-    try:
-        from dotenv import load_dotenv
-        load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
-        api_key = os.environ.get("GOOGLE_API_KEY")
-    except ImportError:
-        pass
-
-if not api_key:
-    raise ValueError("GOOGLE_API_KEY environment variable not set. Please set it or add it to a .env file in the root directory.")
-
-client = genai.Client(api_key=api_key)
-
-# Define the expected structured output schema using Pydantic
-class PendingAction(BaseModel):
-    paper_title: str = Field(description="Title of the selected paper")
-    url: str = Field(description="URL of the selected paper")
-    type: str = Field(description="Type of the alert, e.g., 'Opportunity'")
-    reason: str = Field(description="Reason why this paper matches the repository context goals")
-    action: str = Field(description="Proposed action to take based on the paper")
+# Initialize the resilient client
+client = LLMClient()
 
 def main():
     # File paths based on the contract
-    INCOMING_PAPERS_PATH = os.path.join(os.path.dirname(__file__), "..", "contracts", "incoming_papers.json")
-    REPO_CONTEXT_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "repo_context.md")
-    PENDING_ACTIONS_PATH = os.path.join(os.path.dirname(__file__), "..", "contracts", "pending_actions.json")
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    INCOMING_PAPERS_PATH = os.path.join(BASE_DIR, "contracts", "incoming_papers.json")
+    REPO_CONTEXT_PATH = os.path.join(BASE_DIR, "data", "repo_context.md")
+    PENDING_ACTIONS_PATH = os.path.join(BASE_DIR, "contracts", "pending_actions.json")
 
     # Read the incoming papers
     try:
@@ -62,25 +41,30 @@ def main():
     Analyze the abstracts of these papers against our repository goals.
     Find exactly one highly relevant paper that matches the goals.
     
-    Output exactly one JSON object representing the action to take. 
-    Do NOT wrap it in a list, just return the JSON object matching the requested schema.
+    Output exactly one JSON object with this schema:
+    {{
+        "paper_title": "Title",
+        "url": "URL",
+        "type": "Opportunity",
+        "reason": "Detailed reason",
+        "action": "Proposed action",
+        "target_entity": "Name of algorithm/function to implement",
+        "entity_type": "function or class"
+    }}
+    Return ONLY the raw JSON. No markdown fences.
     """
 
-    # We use gemini-2.5-flash, as it is fully supported on the free tier
-    print("Analyzing papers with Gemini 2.5 Flash...")
+    print("Analyzing papers with Resilient LLM (Gemini -> Groq -> Ollama)...")
     try:
-        # Require JSON output matching our schema
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
-            config={
-                "response_mime_type": "application/json",
-                "response_schema": PendingAction
-            }
-        )
+        output_text = client.generate_content(prompt)
         
-        # Parse the JSON string from Gemini
-        action_data = json.loads(response.text)
+        # Strip potential markdown fences
+        if output_text.startswith("```"):
+            lines = output_text.splitlines()
+            output_text = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
+        
+        # Parse the JSON string
+        action_data = json.loads(output_text)
         
         # The contract requires a list of actions
         output_data = [action_data]
@@ -89,9 +73,10 @@ def main():
             json.dump(output_data, f, indent=2)
             
         print(f"Successfully wrote the selected action to {PENDING_ACTIONS_PATH}")
+        print(json.dumps(output_data, indent=2))
 
     except Exception as e:
-        print(f"Error communicating with Gemini or writing output: {e}")
+        print(f"Error communicating with LLM or writing output: {e}")
 
 if __name__ == "__main__":
     main()
