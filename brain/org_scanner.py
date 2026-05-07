@@ -1,6 +1,13 @@
 import os
+import sys
 import json
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Ensure project root is in path (needed when run as subprocess)
+sys.path.insert(0, str(Path(__file__).parent.parent))
+load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env")
+
 from github import Github, GithubException
 from brain.llm_client import LLMClient
 from pydantic import BaseModel, Field
@@ -9,6 +16,7 @@ from typing import List, Dict
 # Configuration
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_ORG = os.getenv("GITHUB_ORG")
+
 
 class RepoStrategy(BaseModel):
     repo_name: str

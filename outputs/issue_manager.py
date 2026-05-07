@@ -1,7 +1,11 @@
 import os
 import json
 from pathlib import Path
+from dotenv import load_dotenv
 from github import Github
+
+# Load env vars (needed when run as subprocess)
+load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env")
 
 def main():
     base_dir = Path(__file__).parent.parent

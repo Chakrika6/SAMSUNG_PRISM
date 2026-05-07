@@ -1,6 +1,13 @@
 import os
+import sys
 import json
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Ensure project root is in path (needed when run as subprocess)
+sys.path.insert(0, str(Path(__file__).parent.parent))
+load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env")
+
 from brain.llm_client import LLMClient
 from pydantic import BaseModel, Field
 from typing import List, Optional
