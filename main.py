@@ -51,6 +51,7 @@ def heartbeat():
     print("Step 3: Dispatching Multi-Repo Actions & Intel...")
     run_script("outputs/github_dispatcher.py")
     run_script("outputs/auto_pr.py")
+    run_script("outputs/issue_manager.py")
     
     print("\nStep 4: Broadcasting to Telegram (Threats & Trends)...")
     run_script("outputs/send_alert.py")

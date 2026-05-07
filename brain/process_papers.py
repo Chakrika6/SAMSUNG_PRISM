@@ -1,150 +1,78 @@
 import os
 import json
-from google import genai
+from pathlib import Path
+from brain.llm_client import LLMClient
 from pydantic import BaseModel, Field
+from typing import List, Optional
 
-# Ensure we have the API key
-api_key = os.environ.get("GOOGLE_API_KEY")
-if not api_key:
-    # Try loading from .env
-    try:
-        from dotenv import load_dotenv
-        load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
-        api_key = os.environ.get("GOOGLE_API_KEY")
-    except ImportError:
-        pass
-
-if not api_key:
-    raise ValueError("GOOGLE_API_KEY environment variable not set. Please set it or add it to a .env file in the root directory.")
-
-from github import Github
-client = genai.Client(api_key=api_key)
-g = Github(os.getenv("GITHUB_TOKEN"))
-
-# Define the expected structured output schema using Pydantic
 class PendingAction(BaseModel):
-    paper_title: str = Field(description="Title of the selected paper")
-    url: str = Field(description="URL of the selected paper")
-    type: str = Field(description="Type of the alert, e.g., 'Opportunity'")
-    reason: str = Field(description="Reason why this paper matches the repository context goals")
-    action: str = Field(description="Proposed action to take based on the paper")
-    target_entity: str = Field(description="The name of the specific repository in the organization this applies to (e.g. 'galaxy-vision-pipeline')")
+    paper_title: str
+    url: str
+    type: str = Field(description="'Opportunity' or 'Threat'")
+    reason: str
+    action_type: str = Field(description="'PR' if code can be written, 'ISSUE' if high-level research/threat")
+    proposed_implementation: str = Field(description="Code snippet or architectural steps")
+    target_entity: str = Field(description="The repo name this applies to")
 
-def harvest_org_context(org_name):
-    """Fetch README/Context from all repos in the organization."""
-    if not org_name:
-        return "No organization configured. Fallback to local context."
-    
-    try:
-        org = g.get_organization(org_name)
-        repos = org.get_repos()
-        combined_context = f"ORGANIZATION CONTEXT: {org_name}\n"
-        combined_context += "=========================================\n\n"
-        
-        for repo in repos:
-            try:
-                readme = repo.get_readme().decoded_content.decode("utf-8")
-                combined_context += f"REPOSITORY: {repo.name}\n"
-                combined_context += f"DESCRIPTION: {repo.description}\n"
-                combined_context += "--- CONTEXT START ---\n"
-                combined_context += readme[:2000] # Limit to avoid token overflow
-                combined_context += "\n--- CONTEXT END ---\n\n"
-            except:
-                continue
-        return combined_context
-    except Exception as e:
-        return f"Error harvesting org context: {e}"
+class AnalysisOutput(BaseModel):
+    actions: List[PendingAction]
 
 def main():
-    # File paths based on the contract
-    INCOMING_PAPERS_PATH = os.path.join(os.path.dirname(__file__), "..", "contracts", "incoming_papers.json")
-    THREAT_PAPERS_PATH = os.path.join(os.path.dirname(__file__), "..", "contracts", "threat_papers.json")
-    PENDING_ACTIONS_PATH = os.path.join(os.path.dirname(__file__), "..", "contracts", "pending_actions.json")
-    ORG_NAME = os.getenv("GITHUB_ORG")
+    base_dir = Path(__file__).parent.parent
+    INCOMING_PAPERS_PATH = base_dir / "contracts" / "incoming_papers.json"
+    THREAT_PAPERS_PATH = base_dir / "contracts" / "threat_papers.json"
+    ORG_PROFILE_PATH = base_dir / "contracts" / "org_profile.json"
+    PENDING_ACTIONS_PATH = base_dir / "contracts" / "pending_actions.json"
 
-    # Read the incoming papers
-    papers_to_analyze = []
-    try:
+    # 1. Load Org Context
+    if not ORG_PROFILE_PATH.exists():
+        print("[ERROR] Org profile not found. Run org_scanner first.")
+        return
+    with open(ORG_PROFILE_PATH, "r", encoding="utf-8") as f:
+        org_context = f.read()
+
+    # 2. Load Papers
+    papers = []
+    if INCOMING_PAPERS_PATH.exists():
         with open(INCOMING_PAPERS_PATH, "r", encoding="utf-8") as f:
-            papers_to_analyze.extend(json.load(f))
-    except Exception as e:
-        print(f"Error reading {INCOMING_PAPERS_PATH}: {e}")
+            papers.extend(json.load(f))
+    if THREAT_PAPERS_PATH.exists():
+        with open(THREAT_PAPERS_PATH, "r", encoding="utf-8") as f:
+            threats = json.load(f)
+            for t in threats: t["type"] = "Threat"
+            papers.extend(threats)
 
-    # Read threat papers from competitors
-    try:
-        if os.path.exists(THREAT_PAPERS_PATH):
-            with open(THREAT_PAPERS_PATH, "r", encoding="utf-8") as f:
-                threats = json.load(f)
-                for t in threats:
-                    t["type"] = "Threat" # Force threat type for these
-                papers_to_analyze.extend(threats)
-    except Exception as e:
-        print(f"Error reading {THREAT_PAPERS_PATH}: {e}")
-
-    if not papers_to_analyze:
-        print("No papers or threats to analyze.")
+    if not papers:
+        print("No papers to analyze.")
         return
 
-    # Live Harvest from GitHub Organization
-    print(f"Harvesting live context from Organization: {ORG_NAME}...")
-    repo_context = harvest_org_context(ORG_NAME)
-
+    # 3. Analyze across ALL repos
     prompt = f"""
-    You are an intelligent Samsung R&D research architect. 
+    You are a Research Architect. Match these papers to the organization's repositories.
     
-    Here is the combined context of all repositories in our Organization:
-    {repo_context}
+    Organization Context (Profile):
+    {org_context}
     
-    Here is a list of recently fetched research papers and competitor threats in JSON format:
-    {json.dumps(papers_to_analyze, indent=2)}
+    Research Papers:
+    {json.dumps(papers, indent=2)}
     
-    Your task:
-    1. Analyze the abstracts of these papers against the goals of EVERY repository in the list above.
-    2. Identify exactly one highly relevant paper that provides a breakthrough for ONE of the repositories.
-    3. Specify which repository (target_entity) this paper belongs to.
-    
-    Output exactly one JSON object representing the action to take. 
-    Do NOT wrap it in a list, just return the JSON object matching the requested schema.
+    Tasks:
+    1. For EVERY repo, check if any papers are highly relevant.
+    2. If a paper has a clear code implementation -> action_type = 'PR'.
+    3. If it is a threat or high-level research -> action_type = 'ISSUE'.
+    4. Prioritize 'Threat' papers.
     """
 
-    print("Analyzing intelligence with Gemini 2.0 Flash...")
-    try:
-        # Use a list of actions in the response schema
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=f"""
-            You are an intelligent Samsung R&D research architect. 
-            
-            Here is the combined context of all repositories in our Organization:
-            {repo_context}
-            
-            Here is a list of recently fetched research papers and competitor threats in JSON format:
-            {json.dumps(papers_to_analyze, indent=2)}
-            
-            Your task:
-            1. Analyze the abstracts of these papers against the goals of EVERY repository in the list above.
-            2. Identify ALL highly relevant papers (up to 3) that provide breakthroughs or represent significant threats.
-            3. For each, specify which repository (target_entity) this paper applies to.
-            4. If a paper is from a competitor (labeled 'Threat'), prioritize it.
-            
-            Output a JSON list of objects matching the schema.
-            """,
-            config={
-                "response_mime_type": "application/json",
-                "response_schema": list[PendingAction]
-            }
-        )
-        
-        # Parse the JSON string from Gemini
-        output_data = json.loads(response.text)
+    print(f"[BRAIN] Analyzing {len(papers)} papers across the Organization...")
+    llm = LLMClient()
+    analysis = llm.generate_json(prompt, AnalysisOutput, "You are an R&D Lead at Samsung.")
 
+    if analysis:
         with open(PENDING_ACTIONS_PATH, "w", encoding="utf-8") as f:
-            json.dump(output_data, f, indent=2)
-                
-        print(f"Successfully wrote the selected action to {PENDING_ACTIONS_PATH}")
-
-    except Exception as e:
-        print(f"Error communicating with Gemini or writing output: {e}")
+            f.write(analysis.model_dump_json(indent=2))
+        print(f"[OK] Generated {len(analysis.actions)} actions.")
+    else:
+        print("[FAIL] Analysis failed.")
 
 if __name__ == "__main__":
     main()

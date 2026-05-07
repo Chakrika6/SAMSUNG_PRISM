@@ -1,6 +1,22 @@
+# Core
 requests
 python-dotenv
-arxiv
-sentence-transformers
+pydantic
+
+# LLM Providers (Resilience Layer)
 google-genai
+groq
+
+# Data Harvesting
+arxiv
+PyYAML
+
+# ML & Embeddings
+sentence-transformers
+torch
+
+# GitHub Integration
+PyGithub
+
+# Telegram Broadcasting
 python-telegram-bot

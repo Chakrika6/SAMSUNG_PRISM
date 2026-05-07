@@ -50,20 +50,12 @@ PENDING_ACTIONS_PATH = CONTRACTS_DIR / "pending_actions.json"
 # Helpers
 # ---------------------------------------------------------------------------
 
-def load_pending_actions() -> list[dict]:
-    """Load and return the list of alerts from pending_actions.json."""
-    if not PENDING_ACTIONS_PATH.exists():
-        print(f"[ERROR] Contract file not found: {PENDING_ACTIONS_PATH}")
-        sys.exit(1)
-
-    with open(PENDING_ACTIONS_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    if not isinstance(data, list):
-        print("[ERROR] pending_actions.json must contain a JSON array.")
-        sys.exit(1)
-
-    return data
+def load_contract(path: Path) -> dict:
+    """Load and return data from a JSON contract file."""
+    if not path.exists():
+        return {}
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
 def _escape(text: str) -> str:
@@ -75,46 +67,43 @@ def _escape(text: str) -> str:
     return text
 
 
-def format_alert(alert: dict, index: int, total: int) -> str:
-    """
-    Build a Markdown-formatted Telegram message for a single alert.
-
-    Expected fields (from Member 3's contract):
-        paper_title, url, type, reason, action
-    """
-    paper_title = alert.get("paper_title", "Unknown Paper")
-    url         = alert.get("url", "")
-    alert_type  = alert.get("type", "Info")
-    reason      = alert.get("reason", "No reason provided.")
-    action      = alert.get("action", "No action specified.")
-
-    # Emoji badge based on alert type
-    type_emoji = {
-        "opportunity": "🟢",
-        "threat":      "🔴",
-        "info":        "🔵",
-    }.get(alert_type.lower(), "⚪")
-
-    # Escape free-text fields; leave url and action unescaped (used in link / code span)
-    safe_title      = _escape(paper_title)
-    safe_alert_type = _escape(alert_type)
-    safe_reason     = _escape(reason)
-
+def format_enterprise_report(actions_data: dict, trends_data: dict) -> str:
+    """Build a comprehensive Markdown-formatted report for the entire organization."""
+    actions = actions_data.get("actions", [])
+    
     lines = [
-        f"🤖 *RADAR Alert \\[{index}/{total}\\]*",
-        "",
-        f"📄 *Paper:* [{safe_title}]({url})" if url else f"📄 *Paper:* {safe_title}",
-        f"{type_emoji} *Type:* {safe_alert_type}",
-        "",
-        "🧠 *Why it matters:*",
-        f"_{safe_reason}_",
-        "",
-        "⚡ *Recommended Action:*",
-        f"`{action}`",
-        "",
+        "🏢 *RADAR Enterprise Fusion Report*",
         "━━━━━━━━━━━━━━━━━━━━━━━━",
+        ""
     ]
 
+    # 1. Trends Section
+    if trends_data:
+        lines.append("📈 *Global Research Trends*")
+        top_trends = trends_data.get("top_clusters", [])[:3]
+        for t in top_trends:
+            lines.append(f"• _{_escape(t['name'])}_ \\(Velocity: {t.get('velocity', 'N/A')}\\)")
+        lines.append("")
+
+    # 2. Actions Section
+    if actions:
+        lines.append("⚡ *Active Repositories & Intel*")
+        for act in actions:
+            emoji = "🔴" if act.get("type", "").lower() == "threat" else "🟢"
+            action_icon = "🔨" if act.get("action_type") == "PR" else "📋"
+            
+            lines.append(f"{emoji} *Repo:* `{_escape(act['target_entity'])}`")
+            lines.append(f"📄 *Paper:* [{_escape(act['paper_title'])}]({act['url']})")
+            lines.append(f"{action_icon} *Status:* {_escape(act['action_type'])} created")
+            lines.append(f"🧠 *Reason:* _{_escape(act['reason'])}_")
+            lines.append("---")
+    else:
+        lines.append("✅ No critical threats or code opportunities detected today.")
+
+    lines.append("")
+    lines.append("━━━━━━━━━━━━━━━━━━━━━━━━")
+    lines.append("🤖 _RADAR Autonomous Heartbeat_")
+    
     return "\n".join(lines)
 
 
@@ -122,33 +111,19 @@ def format_alert(alert: dict, index: int, total: int) -> str:
 # Core async sender
 # ---------------------------------------------------------------------------
 
-async def send_alerts(token: str, chat_id: str, alerts: list[dict]) -> None:
-    """Iterate over alerts and send each one as a Telegram message."""
+async def send_report(token: str, chat_id: str, report_text: str) -> None:
+    """Send the consolidated report to Telegram."""
     bot = Bot(token=token)
-
-    # Verify the bot token is valid before sending anything
     try:
-        me = await bot.get_me()
-        print(f"[INFO] Connected as @{me.username}. Sending {len(alerts)} alert(s)…")
+        await bot.send_message(
+            chat_id=chat_id,
+            text=report_text,
+            parse_mode=ParseMode.MARKDOWN_V2,
+            disable_web_page_preview=True,
+        )
+        print("[OK] Enterprise Report dispatched.")
     except Exception as exc:
-        print(f"[ERROR] Could not authenticate with Telegram: {exc}")
-        sys.exit(1)
-
-    total = len(alerts)
-    for idx, alert in enumerate(alerts, start=1):
-        message = format_alert(alert, idx, total)
-        try:
-            await bot.send_message(
-                chat_id=chat_id,
-                text=message,
-                parse_mode=ParseMode.MARKDOWN_V2,
-                disable_web_page_preview=False,
-            )
-            print(f"[OK]   Alert {idx}/{total} sent: {alert.get('paper_title', '?')}")
-        except Exception as exc:
-            print(f"[WARN] Failed to send alert {idx}/{total}: {exc}")
-
-    print("[DONE] All alerts dispatched.")
+        print(f"[ERROR] Failed to send report: {exc}")
 
 
 # ---------------------------------------------------------------------------
@@ -158,30 +133,20 @@ async def send_alerts(token: str, chat_id: str, alerts: list[dict]) -> None:
 def main() -> None:
     # Guard against unconfigured credentials
     if TELEGRAM_BOT_TOKEN == "YOUR_BOT_TOKEN_HERE":
-        print(
-            "[ERROR] TELEGRAM_BOT_TOKEN is not set.\n"
-            "        Export it as an environment variable:\n"
-            "            set TELEGRAM_BOT_TOKEN=<your-token>   (Windows)\n"
-            "            export TELEGRAM_BOT_TOKEN=<your-token> (Linux/Mac)"
-        )
+        print("[ERROR] TELEGRAM_BOT_TOKEN is not set.")
         sys.exit(1)
 
     if TELEGRAM_CHAT_ID == "YOUR_CHAT_ID_HERE":
-        print(
-            "[ERROR] TELEGRAM_CHAT_ID is not set.\n"
-            "        Export it as an environment variable:\n"
-            "            set TELEGRAM_CHAT_ID=<your-chat-id>   (Windows)\n"
-            "            export TELEGRAM_CHAT_ID=<your-chat-id> (Linux/Mac)"
-        )
+        print("[ERROR] TELEGRAM_CHAT_ID is not set.")
         sys.exit(1)
 
-    alerts = load_pending_actions()
+    TRENDS_PATH = CONTRACTS_DIR / "trend_report.json"
+    
+    actions_data = load_contract(PENDING_ACTIONS_PATH)
+    trends_data = load_contract(TRENDS_PATH)
 
-    if not alerts:
-        print("[INFO] No alerts found in pending_actions.json. Nothing to send.")
-        return
-
-    asyncio.run(send_alerts(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, alerts))
+    report_text = format_enterprise_report(actions_data, trends_data)
+    asyncio.run(send_report(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, report_text))
 
 
 if __name__ == "__main__":

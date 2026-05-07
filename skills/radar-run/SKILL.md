@@ -1,42 +1,39 @@
 ---
 name: radar-run
-description: Run the complete RADAR pipeline — fetch papers, analyze with Gemini, generate code, and submit a GitHub Pull Request automatically.
+description: Run the complete RADAR Enterprise Fusion pipeline — scan org, fetch papers, analyze across all repos, create PRs/Issues, and broadcast to Telegram.
 metadata:
   {
     "openclaw": {
       "emoji": "🔬",
       "requires": {
-        "env": ["GOOGLE_API_KEY", "GITHUB_TOKEN"]
+        "env": ["GOOGLE_API_KEY", "GITHUB_TOKEN", "GITHUB_ORG", "TELEGRAM_BOT_TOKEN"]
       }
     }
   }
 ---
 
-# RADAR Full Pipeline
+# RADAR Enterprise Fusion Pipeline
 
-Run the complete RADAR autonomous research pipeline:
+Run the full autonomous heartbeat. This single command executes all 5 steps:
 
-**Step 1 — Fetch Papers**
+**Full Pipeline (Recommended)**
 ```bash
 cd c:\Users\sahit\Desktop\Samsung-Prism\SAMSUNG_PRISM
-python -m fetchers.paper_fetcher
+python main.py
 ```
 
-**Step 2 — Analyze with Gemini Brain Engine**
-```bash
-cd c:\Users\sahit\Desktop\Samsung-Prism\SAMSUNG_PRISM
-python -m brain.engine
-```
+This will automatically:
+1. **Step 0 — Org Scan**: Deep-scan all repos in the GitHub Organization (READMEs + code files + issues)
+2. **Step 1 — Harvest**: Fetch papers from ArXiv, competitor threats, and historical trends
+3. **Step 2 — Brain**: Analyze papers against ALL repos using Gemini (with Groq fallback)
+4. **Step 3 — Execute**: Create PRs for code fixes and Issues for research alerts in the correct repos
+5. **Step 4 — Broadcast**: Send a consolidated Enterprise Report to Telegram
 
-**Step 3 — Auto-Coder: Generate Code & Submit PR**
-```bash
-cd c:\Users\sahit\Desktop\Samsung-Prism\SAMSUNG_PRISM
-python outputs/auto_pr.py
-```
-
-After each step, read the output and report:
+After the pipeline completes, report:
+- How many repos were scanned
 - How many papers were fetched
-- Which paper was selected by the Gemini Brain
-- The PR URL that was created
+- Which papers were matched to which repos
+- The PR/Issue URLs that were created
+- Confirmation that the Telegram report was dispatched
 
-If any step fails due to API rate limits, automatically add `--mock` to step 3 and proceed.
+If Gemini fails due to API rate limits, the system automatically falls back to Groq Llama-3.3.
