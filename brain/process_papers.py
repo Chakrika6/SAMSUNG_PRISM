@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import time
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -53,33 +54,48 @@ def main():
         print("No papers to analyze.")
         return
 
-    # 3. Analyze across ALL repos
-    prompt = f"""
-    You are a Research Architect. Match these papers to the organization's repositories.
-    
-    Organization Context (Profile):
-    {org_context}
-    
-    Research Papers:
-    {json.dumps(papers, indent=2)}
-    
-    Tasks:
-    1. For EVERY repo, check if any papers are highly relevant.
-    2. If a paper has a clear code implementation -> action_type = 'PR'.
-    3. If it is a threat or high-level research -> action_type = 'ISSUE'.
-    4. Prioritize 'Threat' papers.
-    """
-
-    print(f"[BRAIN] Analyzing {len(papers)} papers across the Organization...")
+    # 3. Analyze in BATCHES to stay under token limits
+    batch_size = 15
+    all_actions = []
     llm = LLMClient()
-    analysis = llm.generate_json(prompt, AnalysisOutput, "You are an R&D Lead at Samsung.")
+    
+    print(f"[BRAIN] Analyzing {len(papers)} papers in batches of {batch_size}...")
+    
+    for i in range(0, len(papers), batch_size):
+        batch = papers[i:i + batch_size]
+        print(f"   Processing batch {i//batch_size + 1}/{(len(papers)-1)//batch_size + 1} ({len(batch)} papers)...")
+        
+        prompt = f"""
+        You are a Research Architect. Match these papers to the organization's repositories.
+        
+        Organization Context (Profile):
+        {org_context}
+        
+        Research Papers (Batch):
+        {json.dumps(batch, indent=2)}
+        
+        Tasks:
+        1. For EVERY repo, check if any papers are highly relevant.
+        2. If a paper has a clear code implementation -> action_type = 'PR'.
+        3. If it is a threat or high-level research -> action_type = 'ISSUE'.
+        4. Prioritize 'Threat' papers.
+        """
 
-    if analysis:
-        with open(PENDING_ACTIONS_PATH, "w", encoding="utf-8") as f:
-            f.write(analysis.model_dump_json(indent=2))
-        print(f"[OK] Generated {len(analysis.actions)} actions.")
-    else:
-        print("[FAIL] Analysis failed.")
+        analysis = llm.generate_json(prompt, AnalysisOutput, "You are an R&D Lead at Samsung.")
+        if analysis and analysis.actions:
+            all_actions.extend(analysis.actions)
+            print(f"      [+] Found {len(analysis.actions)} actions in this batch.")
+        
+        # Be polite to APIs
+        if i + batch_size < len(papers):
+            time.sleep(2)
+
+    # 4. Save consolidated actions
+    final_output = AnalysisOutput(actions=all_actions)
+    with open(PENDING_ACTIONS_PATH, "w", encoding="utf-8") as f:
+        f.write(final_output.model_dump_json(indent=2))
+    
+    print(f"[OK] Intelligence analysis complete. Total actions generated: {len(all_actions)}")
 
 if __name__ == "__main__":
     main()

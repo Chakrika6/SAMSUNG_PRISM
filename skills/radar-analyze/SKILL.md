@@ -17,8 +17,8 @@ metadata:
 Run the Gemini-powered threat and opportunity analysis engine.
 
 ```bash
-cd c:\Users\sahit\Desktop\Samsung-Prism\SAMSUNG_PRISM
-python -m brain.engine
+cd {{workspace}}
+python -m brain.process_papers
 ```
 
 After running, read `contracts/pending_actions.json` and report back:

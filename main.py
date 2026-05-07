@@ -10,7 +10,7 @@ def run_script(script_cmd):
     try:
         # Split cmd in case there are arguments like --mock
         cmd = [sys.executable] + script_cmd.split()
-        result = subprocess.run(cmd, check=True, text=True, capture_output=True)
+        result = subprocess.run(cmd, check=True, text=True, capture_output=True, encoding="utf-8")
         print(result.stdout)
     except subprocess.CalledProcessError as e:
         print(f"Error running {script_cmd}: {e.stderr}")

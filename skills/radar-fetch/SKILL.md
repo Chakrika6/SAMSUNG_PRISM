@@ -17,7 +17,7 @@ metadata:
 Fetch the latest ArXiv papers from the RADAR harvester module.
 
 ```bash
-cd c:\Users\sahit\Desktop\Samsung-Prism\SAMSUNG_PRISM
+cd {{workspace}}
 python -m fetchers.paper_fetcher
 ```
 

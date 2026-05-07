@@ -4,31 +4,63 @@ import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
+import time
 import config
+
+def fetch_batch(url, retries=3):
+    """Fetch a single ArXiv API batch with retry + exponential backoff."""
+    for attempt in range(retries):
+        try:
+            response = urllib.request.urlopen(url)
+            return response.read()
+        except Exception as e:
+            wait = (attempt + 1) * 5  # 5s, 10s, 15s
+            print(f"   [WARN] ArXiv request failed (attempt {attempt+1}/{retries}): {e}")
+            if attempt < retries - 1:
+                print(f"   Retrying in {wait}s...")
+                time.sleep(wait)
+    return None
 
 def fetch_historical_trends():
     categories = getattr(config, "ARXIV_TREND_CATEGORIES", ["cs.AI", "cs.LG", "cs.CV", "cs.CL", "cs.NE"])
     search_query = " OR ".join([f"cat:{c}" for c in categories])
     
-    # To get a meaningful 30 days, we need a larger max_results. 
-    # 200 was too low and would only pull a few hours of papers.
     max_results = getattr(config, "ARXIV_TREND_MAX_RESULTS", 2000)
-    
-    # ArXiv doesn't have a direct API endpoint in config, so we use the standard one.
+    batch_size = 200  # ArXiv-friendly batch size
     base_url = getattr(config, "ARXIV_BASE_URL", "http://export.arxiv.org/api/query")
-    url = f"{base_url}?search_query={urllib.parse.quote(search_query)}&sortBy=submittedDate&sortOrder=descending&max_results={max_results}"
-    print(f"Fetching historical trends from ArXiv (up to {max_results} recent papers)...")
+    
+    print(f"Fetching historical trends from ArXiv (up to {max_results} papers in batches of {batch_size})...")
     
     trend_data = []
-    try:
-        response = urllib.request.urlopen(url)
-        xml_data = response.read()
-        root = ET.fromstring(xml_data)
+    thirty_days_ago = datetime.now() - timedelta(days=30)
+    ns = {'atom': 'http://www.w3.org/2005/Atom'}
+    
+    for start in range(0, max_results, batch_size):
+        url = (
+            f"{base_url}?search_query={urllib.parse.quote(search_query)}"
+            f"&sortBy=submittedDate&sortOrder=descending"
+            f"&start={start}&max_results={batch_size}"
+        )
+        print(f"   Fetching batch {start // batch_size + 1} (papers {start}-{start + batch_size})...")
         
-        ns = {'atom': 'http://www.w3.org/2005/Atom'}
-        thirty_days_ago = datetime.now() - timedelta(days=30)
+        xml_data = fetch_batch(url)
+        if xml_data is None:
+            print(f"   [ERROR] Batch {start // batch_size + 1} failed after all retries. Stopping.")
+            break
         
-        for entry in root.findall('atom:entry', ns):
+        try:
+            root = ET.fromstring(xml_data)
+        except ET.ParseError as e:
+            print(f"   [ERROR] XML parse error: {e}")
+            break
+            
+        entries = root.findall('atom:entry', ns)
+        if not entries:
+            print(f"   No more entries. Done.")
+            break
+        
+        batch_count = 0
+        for entry in entries:
             published_elem = entry.find('atom:published', ns)
             if published_elem is None:
                 continue
@@ -51,10 +83,14 @@ def fetch_historical_trends():
                     "category": category,
                     "source": "ArXiv"
                 })
-                
-    except Exception as e:
-        print(f"Error fetching from ArXiv: {e}")
+                batch_count += 1
         
+        print(f"   Got {batch_count} papers from this batch (total: {len(trend_data)})")
+        
+        # Be polite to ArXiv — 3 second delay between batches
+        if start + batch_size < max_results and entries:
+            time.sleep(3)
+                
     contract_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'contracts', 'trend_data_raw.json')
     os.makedirs(os.path.dirname(contract_path), exist_ok=True)
     
@@ -65,3 +101,4 @@ def fetch_historical_trends():
 
 if __name__ == "__main__":
     fetch_historical_trends()
+

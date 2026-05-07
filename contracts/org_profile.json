@@ -1,20 +1,148 @@
 {
   "org_name": "Samsung-PRISM-EdgeAI",
   "global_goals": [
-    "Optimize Memory and Compute Resources for Edge AI Applications",
-    "Enhance Inference Speed and Efficiency on Mobile and Embedded Devices",
-    "Develop Adaptive, Energy-Aware Algorithms for Real-Time Processing"
+    "Edge AI",
+    "Mobile NPU Optimization",
+    "AI Enhanced IoT",
+    "Low-Latency Inference",
+    "Efficient AI Models",
+    "Security and Privacy"
   ],
   "research_keywords": [
-    "Efficient Inference Algorithms",
-    "Adaptive Quantization Techniques",
-    "Real-Time Edge AI",
-    "Low-Power Computer Vision",
-    "Hardware-Aware Neural Network Optimization"
+    "Quantization",
+    "Pruning",
+    "Knowledge Distillation",
+    "Federated Learning",
+    "Explainable AI",
+    "Adversarial Attacks"
   ],
-  "repo_mapping": {
-    "core-inference-engine": "Needs research on adaptive quantization, memory optimization, and hardware-specific tuning for efficient inference.",
-    "galaxy-vision-pipeline": "Requires advancements in real-time image signal processing, efficient CNN and Vision Transformer architectures, and low-power computer vision techniques.",
-    "on-device-llm-runtime": "Demands innovative solutions for KV cache compression, speculative decoding, and energy-aware algorithms to enhance on-device LLM performance."
-  }
+  "repo_strategies": [
+    {
+      "repo_name": "core-inference-engine",
+      "tech_stack": [
+        "C++",
+        "Python"
+      ],
+      "engineering_goals": [
+        "Memory Optimization",
+        "On-Device Speed Improvement",
+        "Hardware-Specific Tuning"
+      ],
+      "research_targets": [
+        "Adaptive Quantization",
+        "Sparse Models",
+        "Efficient Cross-Attention Mechanisms"
+      ]
+    },
+    {
+      "repo_name": "galaxy-vision-pipeline",
+      "tech_stack": [
+        "Python",
+        "Spatial CNNs",
+        "Vision Transformers"
+      ],
+      "engineering_goals": [
+        "Migrate to Transformers",
+        "Improve Low-Light Denoising",
+        "Hardware Acceleration"
+      ],
+      "research_targets": [
+        "Efficient Vision Transformers",
+        "Attention Mechanisms for Low-Light Images",
+        "NPU Utilization for Vision Tasks"
+      ]
+    },
+    {
+      "repo_name": "smartthings-iot-hub",
+      "tech_stack": [
+        "Python",
+        "MQTT",
+        "REST",
+        "WebSockets"
+      ],
+      "engineering_goals": [
+        "Battery Drain Issue Resolution",
+        "Data Aggregation Optimization",
+        "Scalable Concurrency Handling"
+      ],
+      "research_targets": [
+        "Energy-Aware Scheduling",
+        "Distributed Edge Inference",
+        "TinyML for IoT Devices"
+      ]
+    },
+    {
+      "repo_name": "on-device-llm-runtime",
+      "tech_stack": [
+        "Python",
+        "Triton",
+        "Cuda"
+      ],
+      "engineering_goals": [
+        "KV Cache Compression",
+        "Decoding Speed Improvement",
+        "Memory Efficiency"
+      ],
+      "research_targets": [
+        "Cache Compression Techniques",
+        "Speculative Decoding",
+        "Memory Optimization for LLMs"
+      ]
+    },
+    {
+      "repo_name": "tizen-samples",
+      "tech_stack": [],
+      "engineering_goals": [],
+      "research_targets": []
+    },
+    {
+      "repo_name": "OpenSCP-Python",
+      "tech_stack": [
+        "Python"
+      ],
+      "engineering_goals": [
+        "Secure Communication Protocol Implementation"
+      ],
+      "research_targets": [
+        "SCP03 and SCP11 Protocol Optimization"
+      ]
+    },
+    {
+      "repo_name": "OpenSCP-Java",
+      "tech_stack": [
+        "Java"
+      ],
+      "engineering_goals": [
+        "Secure Communication Protocol Implementation"
+      ],
+      "research_targets": [
+        "SCP03 and SCP11 Protocol Optimization"
+      ]
+    },
+    {
+      "repo_name": "syzdescriptor",
+      "tech_stack": [
+        "Python"
+      ],
+      "engineering_goals": [
+        "Syscall and Structure Description Generation"
+      ],
+      "research_targets": [
+        "Fuzzing-Ready Syscall Descriptions"
+      ]
+    },
+    {
+      "repo_name": "T-PerfAnalyzer",
+      "tech_stack": [
+        "VS Code Extension"
+      ],
+      "engineering_goals": [
+        "Performance Analysis and Optimization"
+      ],
+      "research_targets": [
+        "Automated Performance Metrics",
+        "Visual Analysis for TV Applications"
+      ]
+    }
+  ]
 }

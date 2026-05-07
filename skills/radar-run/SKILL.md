@@ -18,7 +18,7 @@ Run the full autonomous heartbeat. This single command executes all 5 steps:
 
 **Full Pipeline (Recommended)**
 ```bash
-cd c:\Users\sahit\Desktop\Samsung-Prism\SAMSUNG_PRISM
+cd {{workspace}}
 python main.py
 ```
 

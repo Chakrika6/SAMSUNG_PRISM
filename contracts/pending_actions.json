@@ -1,11 +1,166 @@
-[
-  {
-    "department": "core-inference-engine",
-    "target_entity": "Transformer inference kernels",
-    "paper_title": "RD-ViT: Recurrent-Depth Vision Transformer for Semantic Segmentation with Reduced Data Dependence Extending the Recurrent-Depth Transformer Architecture to Dense Prediction",
-    "url": "http://arxiv.org/abs/2605.03999v1",
-    "type": "Opportunity",
-    "reason": "This paper presents RD-ViT, a Recurrent-Depth Vision Transformer that significantly reduces model parameter count (demonstrating 53% reduction for 3D tasks while maintaining 99.4% performance of standard ViT) by using shared blocks. This directly addresses the 'Memory Optimization' goal to reduce RAM pressure on mid-tier devices (e.g., Galaxy A55 series) by adopting techniques like sparse models or adaptive quantization. Additionally, RD-ViT's Adaptive Computation Time (ACT) mechanism demonstrates learned computational efficiency, which can lead to direct improvements in 'On-Device Speed' for vision-language models by optimizing Transformer inference times, especially for cross-attention bottlenecks on mobile NPUs. The simplified architecture with shared blocks also inherently supports 'Hardware-Specific Tuning' for quantized INT4/INT8 models.",
-    "action": "Initiate a project to evaluate and integrate the Recurrent-Depth Transformer (RDT) architecture, focusing on its shared-block design and Adaptive Computation Time (ACT) mechanism, into our existing C++/Python inference kernels for Transformer-based vision-language models. Develop a prototype refactoring of critical Transformer components, such as cross-attention mechanisms, to leverage the recurrent depth for parameter sharing and dynamic compute allocation. Benchmark the memory footprint and inference speed on Galaxy A55 series devices, specifically targeting INT4/INT8 quantization for optimal NPU utilization, with a goal to achieve the sub-150ms inference target."
-  }
-]
+{
+  "actions": [
+    {
+      "paper_title": "OSAQ: Outlier Self-Absorption for Accurate Low-bit LLM Quantization",
+      "url": "http://arxiv.org/abs/2605.04738v1",
+      "type": "Opportunity",
+      "reason": "The paper provides a method for low-bit quantization of LLMs, which can be applied to the on-device-llm-runtime repository to improve model efficiency.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement the OSAQ method in the on-device-llm-runtime repository to optimize LLM quantization.",
+      "target_entity": "on-device-llm-runtime"
+    },
+    {
+      "paper_title": "Quantized Probabilistic AI for Gear Fault Diagnosis in Motor Drives",
+      "url": "http://arxiv.org/abs/2605.05032v1",
+      "type": "Opportunity",
+      "reason": "The paper discusses the application of quantized AI models for gear fault diagnosis, which can be relevant to the smartthings-iot-hub repository for IoT device optimization.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Investigate the potential of applying quantized AI models for IoT device optimization in the smartthings-iot-hub repository.",
+      "target_entity": "smartthings-iot-hub"
+    },
+    {
+      "paper_title": "Adaptive Inverted-Index Routing for Granular Mixtures-of-Experts",
+      "url": "http://arxiv.org/abs/2605.04952v1",
+      "type": "Opportunity",
+      "reason": "The paper introduces a routing architecture for MoE models, which could be applied to the core-inference-engine repository for improved model efficiency.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement the adaptive inverted-index routing method in the core-inference-engine repository to optimize MoE models.",
+      "target_entity": "core-inference-engine"
+    },
+    {
+      "paper_title": "Lightning Unified Video Editing via In-Context Sparse Attention",
+      "url": "http://arxiv.org/abs/2605.04569v1",
+      "type": "Opportunity",
+      "reason": "The paper presents a method for efficient video editing using sparse attention, which could be relevant to the galaxy-vision-pipeline repository for improved video processing.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Investigate the potential of applying in-context sparse attention for video editing in the galaxy-vision-pipeline repository.",
+      "target_entity": "galaxy-vision-pipeline"
+    },
+    {
+      "paper_title": "ConsisVLA-4D: Advancing Spatiotemporal Consistency in Efficient 3D-Perception and 4D-Reasoning for Robotic Manipulation",
+      "url": "http://arxiv.org/abs/2605.05126v1",
+      "type": "Opportunity",
+      "reason": "The paper discusses a framework for efficient 3D-perception and 4D-reasoning, which could be applied to the galaxy-vision-pipeline repository for improved robotic manipulation.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Investigate the potential of applying the ConsisVLA-4D framework for robotic manipulation in the galaxy-vision-pipeline repository.",
+      "target_entity": "galaxy-vision-pipeline"
+    },
+    {
+      "paper_title": "Low-Cost Black-Box Detection of LLM Hallucinations via Dynamical System Prediction",
+      "url": "http://arxiv.org/abs/2605.05134v1",
+      "type": "Threat",
+      "reason": "The paper presents a method for detecting LLM hallucinations, which is a potential threat to the on-device-llm-runtime repository.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Investigate the potential impact of LLM hallucinations on the on-device-llm-runtime repository and consider implementing the detection method.",
+      "target_entity": "on-device-llm-runtime"
+    },
+    {
+      "paper_title": "On the Hardness of Junking LLMs",
+      "url": "http://arxiv.org/abs/2605.05116v1",
+      "type": "Threat",
+      "reason": "The paper discusses the vulnerability of LLMs to jailbreak attacks and the potential for natural backdoors, which poses a significant threat to the security and safety of AI systems.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Implement additional safety measures such as input validation, output filtering, and regular security audits to prevent jailbreak attacks and natural backdoors.",
+      "target_entity": "on-device-llm-runtime"
+    },
+    {
+      "paper_title": "SoK: Robustness in Large Language Models against Jailbreak Attacks",
+      "url": "http://arxiv.org/abs/2605.05058v1",
+      "type": "Threat",
+      "reason": "The paper provides a comprehensive analysis of the vulnerability of LLMs to jailbreak attacks and highlights the need for improved defenses.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Develop and implement more robust defenses against jailbreak attacks, such as improved input validation, output filtering, and security protocols.",
+      "target_entity": "on-device-llm-runtime"
+    },
+    {
+      "paper_title": "You Snooze, You Lose: Automatic Safety Alignment Restoration through Neural Weight Translation",
+      "url": "http://arxiv.org/abs/2605.04992v1",
+      "type": "Opportunity",
+      "reason": "The paper proposes a novel approach for automatic safety alignment restoration in LLMs, which can improve the security and safety of AI systems.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement the proposed Neural Weight Translation framework to restore safety alignment in LLMs and improve their overall security and safety.",
+      "target_entity": "on-device-llm-runtime"
+    },
+    {
+      "paper_title": "FlowDIS: Language-Guided Dichotomous Image Segmentation with Flow Matching",
+      "url": "http://arxiv.org/abs/2605.05077v1",
+      "type": "Opportunity",
+      "reason": "The paper proposes a novel approach for language-guided dichotomous image segmentation, which can improve the accuracy and efficiency of image segmentation tasks.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement the proposed FlowDIS framework to improve the accuracy and efficiency of image segmentation tasks in the galaxy-vision-pipeline repo.",
+      "target_entity": "galaxy-vision-pipeline"
+    },
+    {
+      "paper_title": "Gaze4HRI: Zero-shot Benchmarking Gaze Estimation Neural-Networks for Human-Robot Interaction",
+      "url": "http://arxiv.org/abs/2605.04770v1",
+      "type": "Opportunity",
+      "reason": "The paper proposes a novel benchmark for evaluating the performance of gaze estimation neural networks in human-robot interaction scenarios.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement the proposed Gaze4HRI benchmark to evaluate the performance of gaze estimation neural networks in human-robot interaction scenarios and improve their overall accuracy and robustness.",
+      "target_entity": "smartthings-iot-hub"
+    },
+    {
+      "paper_title": "EvoPrompt: Connecting LLMs with Evolutionary Algorithms Yields Powerful Prompt Optimizers",
+      "url": "https://www.semanticscholar.org/paper/a9c75cf664f675a1b4034b0256ec3c5168e293df",
+      "type": "Opportunity",
+      "reason": "The paper proposes a novel framework for discrete prompt optimization, which can be applied to the on-device-llm-runtime repository to improve the efficiency of LLMs.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement the EvoPrompt framework in the on-device-llm-runtime repository to optimize prompts for LLMs.",
+      "target_entity": "on-device-llm-runtime"
+    },
+    {
+      "paper_title": "Exploring the limits of strong membership inference attacks on large language models",
+      "url": "https://www.semanticscholar.org/paper/9c97dfbd3b0114a9de358c09d41ad31b8082ade5",
+      "type": "Threat",
+      "reason": "The paper explores the limits of strong membership inference attacks on large language models, which can be a threat to the security and privacy of the on-device-llm-runtime repository.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Investigate the potential risks of membership inference attacks on the on-device-llm-runtime repository and propose mitigation strategies.",
+      "target_entity": "on-device-llm-runtime"
+    },
+    {
+      "paper_title": "Using Machine Learning to Identify Diseases and Perform Sorting in Apple Fruit",
+      "url": "https://www.semanticscholar.org/paper/0d2c38b39f73003ec23ee3e2382e319e20bd5d18",
+      "type": "Opportunity",
+      "reason": "The paper proposes a machine learning-based approach to identify diseases and perform sorting in apple fruit, which can be applied to the smartthings-iot-hub repository to improve the efficiency of IoT devices.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement a machine learning-based approach in the smartthings-iot-hub repository to identify diseases and perform sorting in apple fruit.",
+      "target_entity": "smartthings-iot-hub"
+    },
+    {
+      "paper_title": "Explainable AI in Clinical Decision Support Systems: A Meta-Analysis of Methods, Applications, and Usability Challenges",
+      "url": "https://www.semanticscholar.org/paper/406516bba83884e26dfe744a2b20fa3b7c61bf52",
+      "type": "Opportunity",
+      "reason": "The paper provides a meta-analysis of explainable AI methods in clinical decision support systems, which can be applied to the galaxy-vision-pipeline repository to improve the interpretability of AI models.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement explainable AI methods in the galaxy-vision-pipeline repository to improve the interpretability of AI models.",
+      "target_entity": "galaxy-vision-pipeline"
+    },
+    {
+      "paper_title": "Human-Centered Explainable AI (XAI): From Algorithms to User Experiences",
+      "url": "https://www.semanticscholar.org/paper/5e1746995debd1f17c24af01514c727598cc5613",
+      "type": "Opportunity",
+      "reason": "The paper proposes a human-centered approach to explainable AI, which can be applied to the galaxy-vision-pipeline repository to improve the user experience of AI models.",
+      "action_type": "PR",
+      "proposed_implementation": "Implement a human-centered approach to explainable AI in the galaxy-vision-pipeline repository to improve the user experience of AI models.",
+      "target_entity": "galaxy-vision-pipeline"
+    },
+    {
+      "paper_title": "Multilingual Speech Translation with Unified Transformer: Huawei Noah’s Ark Lab at IWSLT 2021",
+      "url": "https://www.semanticscholar.org/paper/33ea05476e9c1ff1f5ecb96d740b8b16fe80e744",
+      "type": "Threat",
+      "reason": "The paper presents a unified transformer architecture for multilingual speech translation, which could be a threat to Samsung's Edge AI and Mobile NPU Optimization goals.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Investigate the feasibility of integrating a similar unified transformer architecture into Samsung's on-device-llm-runtime repository to improve multilingual speech translation capabilities.",
+      "target_entity": "on-device-llm-runtime"
+    },
+    {
+      "paper_title": "End-to-End Simultaneous Speech Translation with Pretraining and Distillation: Huawei Noah’s System for AutoSimTranS 2022",
+      "url": "https://www.semanticscholar.org/paper/93d8f4f3cfd8c6e4144bbfdda90cbe26dd1f58e6",
+      "type": "Threat",
+      "reason": "The paper describes an end-to-end simultaneous speech translation model with pretraining and distillation, which could be a threat to Samsung's Edge AI and Low-Latency Inference goals.",
+      "action_type": "ISSUE",
+      "proposed_implementation": "Research the application of pretraining and distillation techniques to improve the performance of Samsung's galaxy-vision-pipeline repository for simultaneous speech translation tasks.",
+      "target_entity": "galaxy-vision-pipeline"
+    }
+  ]
+}

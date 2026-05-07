@@ -42,9 +42,9 @@ from google.genai import types as genai_types
 from github import Github, GithubException
 from dotenv import load_dotenv
 
-# Load environment variables from .env in project root
-env_path = Path(__file__).parent.parent / ".env"
-load_dotenv(dotenv_path=env_path)
+# Ensure project root is in path (needed when run as subprocess)
+sys.path.insert(0, str(Path(__file__).parent.parent))
+load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env")
 
 # ---------------------------------------------------------------------------
 # Configuration – set via environment variables OR edit directly here
@@ -89,10 +89,15 @@ def load_pending_actions() -> list[dict]:
         sys.exit(1)
     with open(PENDING_ACTIONS_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
-    if not isinstance(data, list):
-        safe_print("[ERROR] pending_actions.json must be a JSON array.")
-        sys.exit(1)
-    return data
+    
+    # Support both flat list (old) and {"actions": [...]} (new)
+    if isinstance(data, dict) and "actions" in data:
+        return data["actions"]
+    if isinstance(data, list):
+        return data
+
+    safe_print("[ERROR] pending_actions.json must be a JSON array or {'actions': []} object.")
+    sys.exit(1)
 
 
 # ---------------------------------------------------------------------------
